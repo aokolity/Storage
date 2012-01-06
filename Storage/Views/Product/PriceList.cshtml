@@ -1,0 +1,50 @@
+﻿@model IEnumerable<Storage.Models.ProductModel>
+
+@{
+    ViewBag.Title = "Прайс";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Прайс</h2>
+
+<div class="print-link">
+    <a href="JavaScript:window.print();">Распечатать Прайс</a>
+</div>
+<br/>
+<table class="table" style="width: 100%">
+    <tr>
+        <th style="width: 70%" colspan="2">
+            НАИМЕНОВАНИЕ
+        </th>
+        <th style="width: 10%">
+            КР. ОПТ
+        </th>
+        <th style="width: 10%">
+            ОПТ
+        </th>
+        <th style="width: 10%">
+            РОЗНИЦА
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td style="text-align: center; width: 5%;">
+            @Html.DisplayFor(modelItem => item.Code)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td style="text-align: center">
+            @Html.DisplayFor(modelItem => item.WholesalePrice)
+        </td>
+        <td style="text-align: center">
+            @Html.DisplayFor(modelItem => item.ShallowWholesalePrice)
+        </td>
+        <td style="text-align: center">
+            @Html.DisplayFor(modelItem => item.RetailPrice)
+        </td>
+    </tr>
+}
+
+</table>

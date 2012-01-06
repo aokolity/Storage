@@ -1,0 +1,64 @@
+﻿@model IEnumerable<Storage.Models.ProductModel>
+
+@{
+    ViewBag.Title = "Список Товаров";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Список Товаров</h2>
+
+<p>
+    @Html.ActionLink("Создать Товар", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Код
+        </th>
+        <th>
+            Наименование
+        </th>
+        <th>
+            Единица измерения
+        </th>
+        <th>
+            Цена (опт)
+        </th>
+        <th>
+            Цена (мелкий опт)
+        </th>
+        <th>
+            Цена (розница)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Code)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Unit)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.WholesalePrice)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ShallowWholesalePrice)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RetailPrice)
+        </td>
+        <td>
+            @Html.ActionLink("Редактировать", "Edit", new { id=item.ID }) |
+            @Html.ActionLink("Детали", "Details", new { id=item.ID }) |
+            @Html.ActionLink("Удалить", "Delete", new { id=item.ID })
+        </td>
+    </tr>
+}
+
+</table>

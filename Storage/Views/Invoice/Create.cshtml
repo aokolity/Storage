@@ -1,0 +1,237 @@
+﻿@using Storage.Helpers
+@model Storage.ViewModels.InvoiceViewModel
+
+@{
+    ViewBag.Title = ViewBag.Type == "Income" ? "Создать Приходную Накладную" : "Создать Расходную Накладную";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script type="text/javascript">
+
+String.prototype.format = function () {
+    var s = this,
+    i = arguments.length;
+
+    while (i--) {
+        s = s.replace(new RegExp('\\{' + i + '\\}', 'gm'), arguments[i]);
+    }
+    return s;
+};
+
+var rowTemplate = "<tr><td style='text-align: center'><span class='rowNumber'>{0}</span></td><td><input id='productCode' tabindex='{1}' class='productCode' type='text'/><input class='hiddenProductID' id='InvoiceViewModel_InvoiceModel_Products[{3}]_ProductID' name='InvoiceViewModel.InvoiceModel.Products[{3}].ProductID' type='hidden' value='' /></td><td style='text-align: left'><span id='productName' class='productName'></span></td><td><input id='InvoiceViewModel_InvoiceModel_Products[{3}]_Quantity' name='InvoiceViewModel.InvoiceModel.Products[{3}].Quantity' tabindex='{2}' class='productQuantity' type='text' style='text-align: right'/></td><td style='text-align: left'><span id='productUnit' class='productUnit'></span></td><td style='text-align: right'><span id='productPrice' class='productPrice'></span><input class='hiddenPrice' id='InvoiceViewModel_InvoiceModel_Products[{3}]_Price' name='InvoiceViewModel.InvoiceModel.Products[{3}].Price' type='hidden' value='' /></td><td style='text-align: right'><span id='total' class='total'></span></td><td><a class='deleteline' href='#'>Удалить</a></td></tr>";
+
+function GetProductByCode(code, parentRow) {
+    $.ajax({
+        url: '@Url.Action("GetProductByCode", "Product")',
+        dataType: 'json',
+        type: 'POST',
+        data: { code: code, priceType: $("#PriceType").val() },
+        success: function (json) {
+            if (json.success != null) {
+                $('.productName', parentRow).html(json.Name);
+                $('.productUnit', parentRow).html(json.Unit);
+                $('.productPrice', parentRow).html(json.Price);
+                $('.hiddenPrice', parentRow).val(json.Price);
+                $('.hiddenProductID', parentRow).val(json.ID);
+            }
+            else {
+                alert(json.error);
+            }
+        }
+    });
+} 
+
+function SetProductCodeEvent() {
+    $('.productCode').live('blur', function () {
+        var code = $(this).val();
+
+        if (code)
+        {
+            GetProductByCode(code, $(this).parent().parent());
+        }
+    });
+}
+
+function SetProductQuantityEvent() {
+    $('.productQuantity').live('blur', function () {
+        var quantity = $(this).val();
+
+        if (quantity) {
+            var parentRow = $(this).parent().parent();
+
+            var price = $('.productPrice', parentRow).html();
+            var number = $('.rowNumber', parentRow).html();
+            var tabIndex = $('.productQuantity', parentRow).attr("tabindex");
+
+            $('.total', parentRow).html(quantity * price);
+
+            var parentTable = $(this).parent().parent().parent();
+
+            $("tr:last", parentTable).before(rowTemplate.format(parseInt(number) + 1, parseInt(tabIndex) + 1, parseInt(tabIndex) + 2, parseInt(number)));
+
+            var newRow = $("tr:last", parentTable).prev();
+            $('.productCode', newRow).focus();
+
+            UpdateMasterTotal();
+        }
+    });
+}
+
+function SetDeleteLineEvent() {
+    $('.deleteline').live('click', function () {
+        $(this).parent().parent().remove();
+
+        if ($("tr", $('#invoiceProducts')).size() == 2) {
+            InsertFirstRow();
+        }
+
+        UpdateTable();
+        UpdateMasterTotal();
+    });
+}
+
+function UpdateMasterTotal() {
+    var masterTotal = 0;
+
+    $('tr', $('#invoiceProducts')).each(function () {
+        var element = $('.total', $(this));
+
+        if (element.length > 0) {
+            var totalHtml = element.html();
+
+            if (totalHtml) {
+                var total = parseFloat(totalHtml);
+                masterTotal += total;
+            }
+        }
+    });
+
+    $('.mastertotal').html(masterTotal);
+}
+
+function InsertFirstRow() {
+    $("tr:last", $('#invoiceProducts')).before(rowTemplate.format(1, 1, 2, 0));
+}
+
+function UpdateTable() {
+    var rowNumberPosition = 1;
+    var tabIndexPosition = 1;
+
+    $('tr', $('#invoiceProducts')).each(function () {
+
+        // updates rowNumber
+        var rowNumberElement = $('.rowNumber', $(this));
+
+        if (rowNumberElement.length > 0) {
+            rowNumberElement.html(rowNumberPosition);
+            rowNumberPosition += 1;
+        }
+
+        // updates tabIndex
+        var productCodeElement = $('.productCode', $(this));
+        var productQuantityElement = $('.productQuantity', $(this));
+
+        if (productCodeElement.length > 0 && productQuantityElement.length > 0) {
+
+            productCodeElement.attr("tabindex", tabIndexPosition);
+            tabIndexPosition += 1;
+
+            productQuantityElement.attr("tabindex", tabIndexPosition);
+            tabIndexPosition += 1;
+        }
+    });
+}
+
+$(document).ready(function () {
+    InsertFirstRow();
+    
+    SetProductCodeEvent();
+    SetProductQuantityEvent();
+    SetDeleteLineEvent();
+});
+
+</script>
+
+@if (ViewBag.Type == "Income")
+{
+    <h2>Приходная накладная № @Model.InvoiceModel.Number от @Model.InvoiceModel.Date.Day @DateTimeHelper.GetMonthName(Model.InvoiceModel.Date) @Model.InvoiceModel.Date.Year г.</h2>
+}
+else
+{
+    <h2>Расходная накладная № @Model.InvoiceModel.Number от @Model.InvoiceModel.Date.Day @DateTimeHelper.GetMonthName(Model.InvoiceModel.Date) @Model.InvoiceModel.Date.Year г.</h2>
+}
+
+@using (Html.BeginForm()) {
+
+@Html.Hidden("InvoiceViewModel.InvoiceModel.Date", Model.InvoiceModel.Date)
+@Html.Hidden("InvoiceViewModel.InvoiceModel.Type", Model.InvoiceModel.Type)
+@Html.Hidden("InvoiceViewModel.InvoiceModel.Number", Model.InvoiceModel.Number)
+    
+<table class="table">
+    <tr>
+        <td>
+            Поставщик:
+        </td>
+        <td>
+            @Html.DropDownList("InvoiceViewModel.InvoiceModel.Supplier.ID", Model.Clients)
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Получатель:
+        </td>
+        <td>
+            @Html.DropDownList("InvoiceViewModel.InvoiceModel.Recipient.ID", Model.Clients)
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Цена:
+        </td>
+        <td>
+            <select name="PriceType" id="PriceType">
+                <option value="RetailPrice">Цена (розница)</option>
+                <option value="ShallowWholesalePrice">Цена (мелкий опт)</option>
+                <option value="WholesalePrice">Цена (опт)</option>
+            </select>            
+        </td>
+    </tr>
+</table>
+<br/>
+<table id="invoiceProducts" class="table">
+    <tr>
+        <th style="text-align: center">
+            №
+        </th>
+        <th style="text-align: center">
+            Код
+        </th>
+        <th style="width: 30%; text-align: center;">
+            Наименование
+        </th>
+        <th style="text-align: center">
+            Количество
+        </th>
+        <th style="text-align: center">
+            Единица измерения
+        </th>
+        <th style="width: 10%; text-align: center;">
+            Цена
+        </th>
+        <th style="width: 10%; text-align: center;">
+            Сумма
+        </th>
+        <th>
+        </th>
+    </tr>
+    <tr>
+        <td colspan="6" style="text-align: right">Итого:</td>
+        <td style="text-align: right"><span class="mastertotal">10</span></td>
+    </tr>
+</table>
+
+
+<p>
+    <input type="submit" value="Сохранить" />
+</p>
+}

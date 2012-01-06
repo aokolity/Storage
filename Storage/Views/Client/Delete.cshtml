@@ -1,0 +1,41 @@
+﻿@model Storage.Models.ClientModel
+
+@{
+    ViewBag.Title = "Удалить Клиента";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Удалить Клиента</h2>
+
+<h3>Вы уверены, что хотите удалить этого клиента?</h3>
+<fieldset>
+    <legend>Клиент</legend>
+    <br/>
+    <div class="display-label">
+        <strong>@Html.LabelFor(model => model.Name)</strong>
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Name)
+    </div>
+    <br/>
+    <div class="display-label">
+        <strong>@Html.LabelFor(model => model.Telephone)</strong>
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Telephone)
+    </div>
+    <br/>
+    <div class="display-label">
+        <strong>@Html.LabelFor(model => model.Address)</strong>
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Address)
+    </div>
+
+</fieldset>
+@using (Html.BeginForm()) {
+    <p>
+        <input type="submit" value="Удалить" /> |
+        @Html.ActionLink("Вернуться к Списку Клиентов", "Index")
+    </p>
+}

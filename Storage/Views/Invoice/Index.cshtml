@@ -1,0 +1,46 @@
+﻿@using Storage.Helpers
+@model IEnumerable<Storage.Models.InvoiceModel>
+
+@{
+    ViewBag.Title = ViewBag.Type == "Income" ?  "Список Приходных Накладных" : "Список Расходных Накладных";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@if(ViewBag.Type == "Income")
+    {
+        <h2>Список Приходных Накладных</h2>
+    } else
+    {
+        <h2>Список Расходных Накладных</h2>
+    }
+
+
+<p>
+    @Html.ActionLink("Создать Накладную", "Create", "Invoice", new { type = ViewBag.Type }, null)
+</p>
+<table class="table">
+    <tr>
+        <th>
+            № Накладной
+        </th>
+        <th>
+            Дата
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td style="text-align: center">
+            @Html.DisplayFor(modelItem => item.Number)
+        </td>
+        <td>
+            @item.Date.Day @DateTimeHelper.GetMonthName(item.Date) @item.Date.Year г.
+        </td>
+        <td>
+            @Html.ActionLink("Подготовить к Печати", "Print", new { id=item.ID })
+        </td>
+    </tr>
+}
+
+</table>

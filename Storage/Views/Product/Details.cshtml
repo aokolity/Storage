@@ -1,0 +1,59 @@
+﻿@model Storage.Models.ProductModel
+
+@{
+    ViewBag.Title = "Детали Товара";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Детали Товара</h2>
+
+<fieldset>
+    <legend>Товар</legend>
+    <br/>
+    <div class="display-label">
+        <strong>@Html.LabelFor(model => model.Code)</strong>
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Code)
+    </div>
+    <br/>
+    <div class="display-label">
+        <strong>@Html.LabelFor(model => model.Name)</strong>
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Name)
+    </div>
+    <br/>
+    <div class="display-label">
+        <strong>@Html.LabelFor(model => model.Unit)</strong>
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Unit)
+    </div>
+    <br/>
+    <div class="display-label">
+        <strong>@Html.LabelFor(model => model.WholesalePrice)</strong>
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.WholesalePrice)
+    </div>
+    <br/>
+    <div class="display-label">
+        <strong>@Html.LabelFor(model => model.ShallowWholesalePrice)</strong>
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ShallowWholesalePrice)
+    </div>
+    <br/>
+    <div class="display-label">
+        <strong>@Html.LabelFor(model => model.RetailPrice)</strong>
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.RetailPrice)
+    </div>
+
+</fieldset>
+<p>
+    @Html.ActionLink("Редактировать", "Edit", new { id=Model.ID }) |
+    @Html.ActionLink("Вернуться к Списку Товаров", "Index")
+</p>

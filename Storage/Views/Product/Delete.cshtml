@@ -1,0 +1,61 @@
+﻿@model Storage.Models.ProductModel
+
+@{
+    ViewBag.Title = "Удалить Товар";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Удалить Товар</h2>
+
+<h3>Вы уверены, что хотите удалить этот товар?</h3>
+<fieldset>
+    <legend>Товар</legend>
+    <br/>
+    <div class="display-label">
+        <strong>@Html.LabelFor(model => model.Code)</strong>
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Code)
+    </div>
+    <br/>
+    <div class="display-label">
+        <strong>@Html.LabelFor(model => model.Name)</strong>
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Name)
+    </div>
+    <br/>
+    <div class="display-label">
+        <strong>@Html.LabelFor(model => model.Unit)</strong>
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Unit)
+    </div>
+    <br/>
+    <div class="display-label">
+        <strong>@Html.LabelFor(model => model.WholesalePrice)</strong>
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.WholesalePrice)
+    </div>
+    <br/>
+    <div class="display-label">
+        <strong>@Html.LabelFor(model => model.ShallowWholesalePrice)</strong>
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ShallowWholesalePrice)
+    </div>
+    <br/>
+    <div class="display-label">
+        <strong>@Html.LabelFor(model => model.RetailPrice)</strong>
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.RetailPrice)
+    </div>
+</fieldset>
+@using (Html.BeginForm()) {
+    <p>
+        <input type="submit" value="Удалить" /> |
+        @Html.ActionLink("Вернуться к Списку Товаров", "Index")
+    </p>
+}

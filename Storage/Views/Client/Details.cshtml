@@ -1,0 +1,37 @@
+﻿@model Storage.Models.ClientModel
+
+@{
+    ViewBag.Title = "Детали Клиента";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Детали Клиента</h2>
+
+<fieldset>
+    <legend>Клиент</legend>
+    <br/>
+    <div class="display-label">
+        <strong>@Html.LabelFor(model => model.Name)</strong>
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Name)
+    </div>
+    <br/>
+    <div class="display-label">
+        <strong>@Html.LabelFor(model => model.Telephone)</strong>
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Telephone)
+    </div>
+    <br/>
+    <div class="display-label">
+        <strong>@Html.LabelFor(model => model.Address)</strong>
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Address)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Редактировать", "Edit", new { id=Model.ID }) |
+    @Html.ActionLink("Вернуться к Списку Клиентов", "Index")
+</p>

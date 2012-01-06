@@ -1,0 +1,21 @@
+﻿.table
+{
+    border-collapse:collapse;
+}
+
+.table th, .table td
+{
+    border: 1px solid black;
+    padding: 5px;
+}
+
+.printline {
+    border: 0;
+    color: black;
+    background-color: black;
+    height: 2px;
+}
+
+.menu, .print-link {
+    display: none;
+}
