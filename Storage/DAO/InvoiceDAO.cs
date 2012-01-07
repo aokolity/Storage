@@ -68,7 +68,7 @@ namespace Storage.DAO
 
                 int position = 1;
 
-                foreach (ProductsInInvoice productsInInvoice in invoice.ProductsInInvoices)
+                foreach (ProductsInInvoice productsInInvoice in invoice.ProductsInInvoices.OrderBy(pii => pii.Product.Code).ToList())
                 {
                     ProductsInInvoiceModel productsInInvoiceModel = new ProductsInInvoiceModel
                                                                         {

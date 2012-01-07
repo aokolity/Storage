@@ -59,11 +59,11 @@ function SetProductQuantityEvent() {
         if (quantity) {
             var parentRow = $(this).parent().parent();
 
-            var price = $('.productPrice', parentRow).html();
+            var price = $('.productPrice', parentRow).asNumber();
             var number = $('.rowNumber', parentRow).html();
             var tabIndex = $('.productQuantity', parentRow).attr("tabindex");
 
-            $('.total', parentRow).html(quantity * price);
+            $('.total', parentRow).html(quantity * price).formatCurrency({ symbol: '' });
 
             var parentTable = $(this).parent().parent().parent();
 
@@ -100,13 +100,13 @@ function UpdateMasterTotal() {
             var totalHtml = element.html();
 
             if (totalHtml) {
-                var total = parseFloat(totalHtml);
+                var total = element.asNumber();
                 masterTotal += total;
             }
         }
     });
 
-    $('.mastertotal').html(masterTotal);
+    $('.mastertotal').html(masterTotal).formatCurrency({ symbol: '' });
 }
 
 function InsertFirstRow() {
@@ -226,7 +226,7 @@ else
     </tr>
     <tr>
         <td colspan="6" style="text-align: right">Итого:</td>
-        <td style="text-align: right"><span class="mastertotal">10</span></td>
+        <td style="text-align: right"><span class="mastertotal"></span></td>
     </tr>
 </table>
 

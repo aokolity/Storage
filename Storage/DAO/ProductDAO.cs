@@ -36,6 +36,7 @@ namespace Storage.DAO
             var storageDbEntities = new StorageDBEntities();
 
             List<ProductModel> list = (from p in storageDbEntities.Products
+                                       orderby p.Code
                                        select new ProductModel
                                        {
                                            ID = p.ID,
@@ -61,6 +62,7 @@ namespace Storage.DAO
 
             List<ProductModel> list = (from p in storageDbEntities.Products
                                        where p.CategoryID == categoryID
+                                       orderby p.Code
                                        select new ProductModel
                                        {
                                            ID = p.ID,

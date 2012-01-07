@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Web.Mvc;
 using Storage.DAO;
+using Storage.Helpers;
 using Storage.Models;
 using System.Linq;
 
@@ -218,7 +219,7 @@ namespace Storage.Controllers
                                     ID = productModel.ID,
                                     Name = productModel.Name,
                                     Unit = productModel.Unit,
-                                    Price = price.ToString(),
+                                    Price = CurrencyHelper.FormatCurrency(price),
                                     Code = code
                                 });
             }

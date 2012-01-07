@@ -50,22 +50,25 @@ else
 <br/>
 <table class="table" width="100%">
     <tr>
-        <th style="text-align: center; width: 3%;">
+        <th style="text-align: center; width: 20px;">
             №
         </th>
-        <th style="width: 50%; text-align: center;">
+        <th style="text-align: center; width: 40px;">
+            Код
+        </th>
+        <th style="text-align: center;">
             Наименование
         </th>
-        <th style="width: 10%; text-align: center">
-            Количество
+        <th style="text-align: center; width: 40px;">
+            Кол-во
         </th>
-        <th style="text-align: center; width: 3%;">
+        <th style="text-align: center; width: 100px;">
             Ед.
         </th>
-        <th style="width: 10%; text-align: center;">
+        <th style="text-align: center; width: 60px;">
             Цена
         </th>
-        <th style="width: 10%; text-align: center;">
+        <th style="text-align: center; width: 60px;">
             Сумма
         </th>
     </tr>
@@ -74,20 +77,21 @@ else
     {
         <tr>
             <td style='text-align: center'>@item.Position</td>
+            <td style='text-align: center'>@item.Product.Code</td>
             <td>@item.Product.Name</td>
             <td style='text-align: right'>@item.Quantity</td>
             <td style='text-align: left'>@item.Product.Unit</td>
-            <td style='text-align: right'>@item.Price</td>
-            <td style='text-align: right'>@item.Total</td>
+            <td style='text-align: right'>@CurrencyHelper.FormatCurrency(item.Price)</td>
+            <td style='text-align: right'>@CurrencyHelper.FormatCurrency(@item.Total)</td>
         </tr>
     }
     
     <tr>
-        <td colspan="5" style="text-align: right; border: 0px">
+        <td colspan="6" style="text-align: right; border: 0px">
             Итого:
         </td>
         <td style="text-align: right; border: 0px;">
-            <strong>@Model.MasterTotal</strong>
+            <strong>@CurrencyHelper.FormatCurrency(Model.MasterTotal)</strong>
         </td>
     </tr>
 </table>
@@ -96,13 +100,13 @@ else
 <br/>
 <table border="0" style="border-collapse:collapse; width: 100%" cellspacing="0">
     <tr>
-        <td style="width: 8%">
+        <td style="width: 80px">
             Отгрузил(а):
         </td>
         <td >
             <hr style="border: 0; color: black; background-color: black; height: 1px; position: relative; top: 10px;"/>
         </td>
-        <td style="width: 8%; padding-left: 30px;">
+        <td style="width: 80px; padding-left: 30px;">
             Получил(а):
         </td>
         <td>
