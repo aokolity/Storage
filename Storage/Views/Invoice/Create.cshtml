@@ -43,13 +43,34 @@ function GetProductByCode(code, parentRow) {
 
 function SetProductCodeEvent() {
     $('.productCode').live('blur', function () {
-        var code = $(this).val();
+        if(CheckExistingCodeRow($(this))){
+            return;
+        }
 
-        if (code)
-        {
+        var code = $(this).val();
+        
+        if (code) {
             GetProductByCode(code, $(this).parent().parent());
         }
     });
+}
+
+function CheckExistingCodeRow(currentProductCodeElement) {
+    var currentProductCode = $(currentProductCodeElement).val();
+
+    $('.productCode').not(currentProductCodeElement).each(function () {
+        var productCode = $(this).val();
+
+        if (currentProductCode == productCode) {
+            $('.productQuantity', $(this).parent().parent()).focus().select();
+
+            DeleteRow(currentProductCodeElement.parent().parent());
+
+            return true;
+        }
+    });
+
+    return false;
 }
 
 function SetProductQuantityEvent() {
@@ -72,21 +93,26 @@ function SetProductQuantityEvent() {
             var newRow = $("tr:last", parentTable).prev();
             $('.productCode', newRow).focus();
 
+            UpdateTable();
             UpdateMasterTotal();
         }
     });
 }
 
+function DeleteRow(rowElement) {
+    rowElement.remove();
+
+    if ($("tr", $('#invoiceProducts')).size() == 2) {
+        InsertFirstRow();
+    }
+
+    UpdateTable();
+    UpdateMasterTotal();
+}
+
 function SetDeleteLineEvent() {
     $('.deleteline').live('click', function () {
-        $(this).parent().parent().remove();
-
-        if ($("tr", $('#invoiceProducts')).size() == 2) {
-            InsertFirstRow();
-        }
-
-        UpdateTable();
-        UpdateMasterTotal();
+        DeleteRow($(this).parent().parent());
     });
 }
 

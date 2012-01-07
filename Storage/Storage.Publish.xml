@@ -1,47 +1,53 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <publishData>
   <publishProfile publishUrl="D:\Artur\Storage\Web Site\Storage" deleteExistingFiles="True" ftpAnonymousLogin="False" ftpPassiveMode="True" msdeploySite="" msdeploySiteID="" msdeployRemoteSitePhysicalPath="" msdeployAllowUntrustedCertificate="False" msdeploySkipExtraFilesOnServer="True" msdeployMarkAsApp="False" profileName="Profile1" publishMethod="FileSystem" replaceMatchingFiles="False" userName="" savePWD="False" userPWD="" SelectedForPublish="True">
-    <file relUrl="bin/Storage.dll" publishTime="12/24/2011 16:48:09" />
+    <file relUrl="Views/Product/Details.cshtml" publishTime="01/07/2012 02:32:21" />
     <file relUrl="Views/Client/Details.cshtml" publishTime="12/11/2011 18:59:09" />
+    <file relUrl="Views/Category/Index.cshtml" publishTime="01/07/2012 02:02:49" />
     <file relUrl="Views/Client/Edit.cshtml" publishTime="12/11/2011 18:50:31" />
     <file relUrl="Scripts/MicrosoftAjax.js" publishTime="12/11/2011 02:07:31" />
     <file relUrl="Scripts/jquery-1.5.1-vsdoc.js" publishTime="12/11/2011 02:07:46" />
     <file relUrl="Global.asax" publishTime="12/11/2011 02:07:31" />
     <file relUrl="bin/EntityFramework.xml" publishTime="12/11/2011 02:07:56" />
     <file relUrl="Views/_ViewStart.cshtml" publishTime="12/11/2011 02:07:31" />
+    <file relUrl="Views/Category/Create.cshtml" publishTime="01/07/2012 02:00:35" />
+    <file relUrl="Scripts/jquery-1.5.1.min.js" publishTime="12/11/2011 02:07:45" />
     <file relUrl="Views/Client/Delete.cshtml" publishTime="12/11/2011 18:59:06" />
     <file relUrl="Scripts/jquery-1.5.1.js" publishTime="12/11/2011 02:07:45" />
     <file relUrl="Scripts/MicrosoftMvcAjax.debug.js" publishTime="12/11/2011 02:07:31" />
     <file relUrl="Scripts/MicrosoftMvcValidation.debug.js" publishTime="12/11/2011 02:07:31" />
-    <file relUrl="Views/Product/Index.cshtml" publishTime="12/11/2011 19:04:41" />
-    <file relUrl="Views/Product/Details.cshtml" publishTime="12/11/2011 18:58:55" />
-    <file relUrl="Views/Product/Edit.cshtml" publishTime="12/11/2011 03:24:45" />
-    <file relUrl="Views/Invoice/Create.cshtml" publishTime="12/20/2011 20:42:15" />
-    <file relUrl="App_Data/StorageDB.sdf" publishTime="12/24/2011 15:49:06" />
+    <file relUrl="Views/Product/Index.cshtml" publishTime="01/07/2012 03:05:01" />
     <file relUrl="Scripts/jquery.unobtrusive-ajax.min.js" publishTime="12/11/2011 02:07:31" />
-    <file relUrl="Views/Product/Create.cshtml" publishTime="12/11/2011 18:59:49" />
-    <file relUrl="packages.config" publishTime="12/20/2011 21:45:33" />
-    <file relUrl="Views/Home/Index.cshtml" publishTime="12/24/2011 15:39:44" />
-    <file relUrl="Scripts/jquery-1.5.1.min.js" publishTime="12/11/2011 02:07:45" />
-    <file relUrl="Scripts/MicrosoftMvcValidation.js" publishTime="12/11/2011 02:07:31" />
-    <file relUrl="Scripts/MicrosoftMvcAjax.js" publishTime="12/11/2011 02:07:31" />
     <file relUrl="Views/Shared/Error.cshtml" publishTime="12/11/2011 02:07:31" />
+    <file relUrl="Views/Product/Edit.cshtml" publishTime="01/07/2012 02:18:31" />
+    <file relUrl="Views/Invoice/Create.cshtml" publishTime="01/08/2012 01:46:09" />
+    <file relUrl="App_Data/StorageDB.sdf" publishTime="01/08/2012 01:51:04" />
+    <file relUrl="Views/Category/Delete.cshtml" publishTime="01/07/2012 02:03:55" />
+    <file relUrl="Views/Product/Create.cshtml" publishTime="01/07/2012 02:29:39" />
+    <file relUrl="packages.config" publishTime="12/20/2011 21:45:33" />
+    <file relUrl="Views/Category/Details.cshtml" publishTime="01/07/2012 02:03:39" />
+    <file relUrl="Views/Home/Index.cshtml" publishTime="12/24/2011 15:39:44" />
+    <file relUrl="bin/Storage.dll" publishTime="01/07/2012 16:55:35" />
+    <file relUrl="Scripts/MicrosoftMvcAjax.js" publishTime="12/11/2011 02:07:31" />
     <file relUrl="Scripts/jquery.validate.unobtrusive.js" publishTime="12/11/2011 02:07:31" />
     <file relUrl="Views/Client/Index.cshtml" publishTime="12/12/2011 00:33:19" />
-    <file relUrl="Views/Shared/_Layout.cshtml" publishTime="12/12/2011 00:46:20" />
-    <file relUrl="Content/Site.css" publishTime="12/20/2011 21:26:29" />
+    <file relUrl="Views/Shared/_Layout.cshtml" publishTime="01/07/2012 16:04:55" />
+    <file relUrl="Scripts/jquery.formatCurrency-1.4.0.js" publishTime="01/07/2012 16:04:36" />
+    <file relUrl="Views/Category/Edit.cshtml" publishTime="01/07/2012 02:00:49" />
+    <file relUrl="Content/Site.css" publishTime="01/07/2012 15:45:27" />
     <file relUrl="Views/Invoice/Index.cshtml" publishTime="12/20/2011 20:18:24" />
     <file relUrl="Views/Product/Delete.cshtml" publishTime="12/11/2011 18:58:59" />
-    <file relUrl="Views/Invoice/Print.cshtml" publishTime="12/24/2011 15:49:22" />
-    <file relUrl="Web.config" publishTime="12/24/2011 15:51:38" />
-    <file relUrl="Views/Product/PriceList.cshtml" publishTime="12/20/2011 21:31:26" />
+    <file relUrl="Views/Invoice/Print.cshtml" publishTime="01/08/2012 01:49:47" />
+    <file relUrl="Scripts/jquery.unobtrusive-ajax.js" publishTime="12/11/2011 02:07:31" />
+    <file relUrl="Views/Product/PriceList.cshtml" publishTime="01/07/2012 03:05:06" />
     <file relUrl="Views/Client/Create.cshtml" publishTime="12/11/2011 18:59:43" />
     <file relUrl="Scripts/MicrosoftAjax.debug.js" publishTime="12/11/2011 02:07:31" />
     <file relUrl="bin/EntityFramework.dll" publishTime="12/11/2011 02:07:56" />
-    <file relUrl="bin/Storage.pdb" publishTime="12/24/2011 16:48:09" />
-    <file relUrl="Content/Print.css" publishTime="12/20/2011 21:34:35" />
-    <file relUrl="Scripts/jquery.unobtrusive-ajax.js" publishTime="12/11/2011 02:07:31" />
+    <file relUrl="bin/Storage.pdb" publishTime="01/07/2012 16:55:35" />
+    <file relUrl="Content/Print.css" publishTime="01/07/2012 15:23:58" />
+    <file relUrl="Scripts/MicrosoftMvcValidation.js" publishTime="12/11/2011 02:07:31" />
     <file relUrl="Scripts/jquery.validate.unobtrusive.min.js" publishTime="12/11/2011 02:07:31" />
     <file relUrl="Views/Web.config" publishTime="12/11/2011 02:07:31" />
+    <file relUrl="Web.config" publishTime="01/07/2012 16:56:43" />
   </publishProfile>
 </publishData>
