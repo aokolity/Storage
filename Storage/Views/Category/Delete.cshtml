@@ -1,0 +1,26 @@
+﻿@model Storage.Models.CategoryModel
+
+@{
+    ViewBag.Title = "Удалить Категорию";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Удалить Категорию</h2>
+
+<h3>Вы уверены, что хотите удалить эту категорию?</h3>
+<fieldset>
+    <legend>Категория</legend>
+    <br/>
+    <div class="display-label">
+        <strong>@Html.LabelFor(model => model.Name)</strong>
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Name)
+    </div>
+</fieldset>
+@using (Html.BeginForm()) {
+    <p>
+        <input type="submit" value="Удалить" /> |
+        @Html.ActionLink("Вернуться к Списку Категорий", "Index")
+    </p>
+}

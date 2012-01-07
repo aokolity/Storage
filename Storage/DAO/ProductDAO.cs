@@ -21,7 +21,12 @@ namespace Storage.DAO
                                                    WholesalePrice = p.WholesalePrice,
                                                    ShallowWholesalePrice = p.ShallowWholesalePrice,
                                                    RetailPrice = p.RetailPrice,
-                                                   Unit = p.Unit
+                                                   Unit = p.Unit,
+                                                   Category = new CategoryModel
+                                                   {
+                                                       ID = (int?) p.Category.ID, 
+                                                       Name = p.Category.Name
+                                                   }
                                                }).SingleOrDefault();
             return product;
         }
@@ -39,7 +44,37 @@ namespace Storage.DAO
                                            WholesalePrice = p.WholesalePrice,
                                            ShallowWholesalePrice = p.ShallowWholesalePrice,
                                            RetailPrice = p.RetailPrice,
-                                           Unit = p.Unit
+                                           Unit = p.Unit,
+                                           Category = new CategoryModel
+                                            {
+                                                ID = (int?)p.Category.ID,
+                                                Name = p.Category.Name
+                                            }
+                                       }).ToList();
+
+            return list;
+        }
+
+        public static List<ProductModel> GetProductListByCategoryID(int categoryID)
+        {
+            var storageDbEntities = new StorageDBEntities();
+
+            List<ProductModel> list = (from p in storageDbEntities.Products
+                                       where p.CategoryID == categoryID
+                                       select new ProductModel
+                                       {
+                                           ID = p.ID,
+                                           Code = p.Code,
+                                           Name = p.Name,
+                                           WholesalePrice = p.WholesalePrice,
+                                           ShallowWholesalePrice = p.ShallowWholesalePrice,
+                                           RetailPrice = p.RetailPrice,
+                                           Unit = p.Unit,
+                                           Category = new CategoryModel
+                                           {
+                                               ID = (int?)p.Category.ID,
+                                               Name = p.Category.Name
+                                           }
                                        }).ToList();
 
             return list;
@@ -56,7 +91,8 @@ namespace Storage.DAO
                                          Unit = productModel.Unit,
                                          WholesalePrice = productModel.WholesalePrice,
                                          ShallowWholesalePrice = productModel.ShallowWholesalePrice,
-                                         RetailPrice = productModel.RetailPrice
+                                         RetailPrice = productModel.RetailPrice,
+                                         CategoryID = productModel.Category.ID
                                      };
 
             storageDbEntities.Products.AddObject(newProduct);
@@ -77,6 +113,7 @@ namespace Storage.DAO
                 product.WholesalePrice = productModel.WholesalePrice;
                 product.ShallowWholesalePrice = productModel.ShallowWholesalePrice;
                 product.RetailPrice = productModel.RetailPrice;
+                product.CategoryID = productModel.Category.ID;
             }
 
             storageDbEntities.SaveChanges();

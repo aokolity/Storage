@@ -5,12 +5,19 @@ namespace Storage.Models
 {
     public class ProductModel
     {
+        public ProductModel()
+        {
+            Category = new CategoryModel();
+        }
+
         public int ID { get; set; }
         [DisplayName("Код")]
         public string Code { get; set; }
         [DataType(DataType.MultilineText)]
         [DisplayName("Наименование")]
         public string Name { get; set; }
+        [DisplayName("Категория")]
+        public CategoryModel Category { get; set; }
         [DisplayName("Единица измерения")]
         public string Unit { get; set; }
         [DisplayName("Цена (опт)")]

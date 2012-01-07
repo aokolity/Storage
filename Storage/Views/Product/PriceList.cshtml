@@ -7,10 +7,18 @@
 
 <h2>Прайс</h2>
 
-<div class="print-link">
+<p class="print-link">
     <a href="JavaScript:window.print();">Распечатать Прайс</a>
-</div>
-<br/>
+</p>
+
+@using (Html.BeginForm()) 
+{
+    <p class="category-filter">
+        Категория: @Html.DropDownList("CategoryID", (IEnumerable<SelectListItem>)ViewBag.Categories)
+        <input type="submit" value="Фильтровать" />
+    </p>
+}
+
 <table class="table" style="width: 100%">
     <tr>
         <th style="width: 70%" colspan="2">

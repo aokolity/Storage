@@ -26,6 +26,13 @@
         </div>
 
         <div class="editor-label">
+            @Html.LabelFor(model => model.Category)
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("Category.ID", (IEnumerable<SelectListItem>)ViewBag.Categories)
+        </div>
+
+        <div class="editor-label">
             @Html.LabelFor(model => model.Unit)
         </div>
         <div class="editor-field">

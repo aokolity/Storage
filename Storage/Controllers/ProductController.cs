@@ -2,6 +2,7 @@
 using System.Web.Mvc;
 using Storage.DAO;
 using Storage.Models;
+using System.Linq;
 
 namespace Storage.Controllers
 {
@@ -12,7 +13,38 @@ namespace Storage.Controllers
 
         public ActionResult Index()
         {
+            var categories = GetCategories();
+
+            categories.Insert(0, new SelectListItem { Value = "-1", Text = "Все" });
+
+            ViewBag.Categories = categories;
+
             List<ProductModel> list = ProductDAO.GetProductList();
+
+            return View(list);
+        }
+
+        //
+        // POST: /Product/
+
+        [HttpPost]
+        public ActionResult Index(int categoryID)
+        {
+            List<SelectListItem> categories = GetCategories();
+
+            categories.Insert(0, new SelectListItem { Value = "-1", Text = "Все" });
+
+            foreach (SelectListItem selectListItem in categories)
+            {
+                if(selectListItem.Value == categoryID.ToString())
+                {
+                    selectListItem.Selected = true;
+                }
+            }
+
+            ViewBag.Categories = categories;
+
+            List<ProductModel> list = categoryID != -1 ? ProductDAO.GetProductListByCategoryID(categoryID) : ProductDAO.GetProductList();
 
             return View(list);
         }
@@ -32,6 +64,8 @@ namespace Storage.Controllers
 
         public ActionResult Create()
         {
+            ViewBag.Categories = GetCategories();
+
             return View();
         }
 
@@ -59,6 +93,18 @@ namespace Storage.Controllers
         public ActionResult Edit(int id)
         {
             var product = ProductDAO.GetProduct(id);
+
+            List<SelectListItem> categories = GetCategories();
+
+            foreach (SelectListItem selectListItem in categories)
+            {
+                if (product.Category.ID.HasValue && selectListItem.Value == product.Category.ID.ToString())
+                {
+                    selectListItem.Selected = true;
+                }
+            }
+
+            ViewBag.Categories = categories;
 
             return View(product);
         }
@@ -111,7 +157,35 @@ namespace Storage.Controllers
 
         public ActionResult PriceList()
         {
+            var categories = GetCategories();
+
+            categories.Insert(0, new SelectListItem { Value = "-1", Text = "Все" });
+
+            ViewBag.Categories = categories;
+
             List<ProductModel> list = ProductDAO.GetProductList();
+
+            return View(list);
+        }
+
+        [HttpPost]
+        public ActionResult PriceList(int categoryID)
+        {
+            List<SelectListItem> categories = GetCategories();
+
+            categories.Insert(0, new SelectListItem { Value = "-1", Text = "Все" });
+
+            foreach (SelectListItem selectListItem in categories)
+            {
+                if (selectListItem.Value == categoryID.ToString())
+                {
+                    selectListItem.Selected = true;
+                }
+            }
+
+            ViewBag.Categories = categories;
+
+            List<ProductModel> list = categoryID != -1 ? ProductDAO.GetProductListByCategoryID(categoryID) : ProductDAO.GetProductList();
 
             return View(list);
         }
@@ -148,10 +222,18 @@ namespace Storage.Controllers
                                     Code = code
                                 });
             }
-            else
+
+            return Json(new { error = "Извините, но по такому коду не найдено ни одного товара." });
+        }
+
+        private static List<SelectListItem> GetCategories()
+        {
+            List<SelectListItem> categories = CategoryDAO.GetCategoryList().Select(c => new SelectListItem
             {
-                return Json(new { error = "Извините, но по такому коду не найдено ни одного товара." });
-            }
+                Value = c.ID.ToString(),
+                Text = c.Name
+            }).ToList();
+            return categories;
         }
     }
 }
