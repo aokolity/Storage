@@ -80,11 +80,11 @@ function SetProductQuantityEvent() {
         if (quantity) {
             var parentRow = $(this).parent().parent();
 
-            var price = $('.productPrice', parentRow).asNumber();
+            var price = $('.productPrice', parentRow).asNumber({ region: '@CurrencyHelper.GetCurrentCultureName()' });
             var number = $('.rowNumber', parentRow).html();
             var tabIndex = $('.productQuantity', parentRow).attr("tabindex");
 
-            $('.total', parentRow).html(quantity * price).formatCurrency({ symbol: '' });
+            $('.total', parentRow).html(quantity * price).formatCurrency({ region: '@CurrencyHelper.GetCurrentCultureName()' });
 
             var parentTable = $(this).parent().parent().parent();
 
@@ -126,13 +126,13 @@ function UpdateMasterTotal() {
             var totalHtml = element.html();
 
             if (totalHtml) {
-                var total = element.asNumber();
+                var total = element.asNumber({ region: '@CurrencyHelper.GetCurrentCultureName()' });
                 masterTotal += total;
             }
         }
     });
 
-    $('.mastertotal').html(masterTotal).formatCurrency({ symbol: '' });
+    $('.mastertotal').html(masterTotal).formatCurrency({ region: '@CurrencyHelper.GetCurrentCultureName()' });
 }
 
 function InsertFirstRow() {
@@ -170,7 +170,7 @@ function UpdateTable() {
 
 $(document).ready(function () {
     InsertFirstRow();
-    
+
     SetProductCodeEvent();
     SetProductQuantityEvent();
     SetDeleteLineEvent();
@@ -224,35 +224,39 @@ else
     </tr>
 </table>
 <br/>
-<table id="invoiceProducts" class="table">
+<table id="invoiceProducts" class="table" width="100%">
     <tr>
-        <th style="text-align: center">
+        <th style="text-align: center; width: 20px;">
             №
         </th>
-        <th style="text-align: center">
+        <th style="text-align: center; width: 40px;">
             Код
         </th>
-        <th style="width: 30%; text-align: center;">
+        <th style="text-align: center;">
             Наименование
         </th>
-        <th style="text-align: center">
-            Количество
+        <th style="text-align: center; width: 20px;">
+            Кол.
         </th>
-        <th style="text-align: center">
-            Единица измерения
+        <th style="text-align: center; width: 80px;">
+            Ед.
         </th>
-        <th style="width: 10%; text-align: center;">
+        <th style="text-align: center; width: 60px;">
             Цена
         </th>
-        <th style="width: 10%; text-align: center;">
+        <th style="text-align: center; width: 60px;">
             Сумма
         </th>
-        <th>
+        <th style="width: 60px;">
         </th>
     </tr>
     <tr>
-        <td colspan="6" style="text-align: right">Итого:</td>
-        <td style="text-align: right"><span class="mastertotal"></span></td>
+        <td colspan="6" style="text-align: right; border: 0px;">
+            Итого:
+        </td>
+        <td style="text-align: right; border: 0px;">
+            <span class="mastertotal"></span>
+        </td>
     </tr>
 </table>
 

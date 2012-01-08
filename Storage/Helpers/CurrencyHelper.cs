@@ -13,5 +13,10 @@ namespace Storage.Helpers
 
             return string.Format(nfi, "{0:c}", value);
         }
+
+        public static string GetCurrentCultureName()
+        {
+            return CultureInfo.CurrentCulture.Name;
+        }
     }
 }

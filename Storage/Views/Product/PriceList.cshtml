@@ -1,4 +1,5 @@
-﻿@model IEnumerable<Storage.Models.ProductModel>
+﻿@using Storage.Helpers
+@model IEnumerable<Storage.Models.ProductModel>
 
 @{
     ViewBag.Title = "Прайс";
@@ -44,15 +45,14 @@
             @Html.DisplayFor(modelItem => item.Name)
         </td>
         <td style="text-align: center">
-            @Html.DisplayFor(modelItem => item.WholesalePrice)
+            @CurrencyHelper.FormatCurrency(item.WholesalePrice)
         </td>
         <td style="text-align: center">
-            @Html.DisplayFor(modelItem => item.ShallowWholesalePrice)
+            @CurrencyHelper.FormatCurrency(item.ShallowWholesalePrice)
         </td>
         <td style="text-align: center">
-            @Html.DisplayFor(modelItem => item.RetailPrice)
+            @CurrencyHelper.FormatCurrency(item.RetailPrice)
         </td>
     </tr>
 }
-
 </table>

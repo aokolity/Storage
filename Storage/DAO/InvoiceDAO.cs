@@ -68,7 +68,7 @@ namespace Storage.DAO
 
                 int position = 1;
 
-                foreach (ProductsInInvoice productsInInvoice in invoice.ProductsInInvoices.OrderBy(pii => pii.Product.Code).ToList())
+                foreach (ProductsInInvoice productsInInvoice in invoice.ProductsInInvoices.ToList())
                 {
                     ProductsInInvoiceModel productsInInvoiceModel = new ProductsInInvoiceModel
                                                                         {
@@ -92,6 +92,8 @@ namespace Storage.DAO
 
                     position++;
                 }
+
+                invoiceModel.Products = invoiceModel.Products.OrderBy(p => Convert.ToInt32(p.Product.Code)).ToList();
 
                 return invoiceModel;
             }

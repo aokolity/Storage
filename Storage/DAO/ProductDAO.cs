@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Storage.Models;
 using Storage.ORM;
@@ -36,7 +37,6 @@ namespace Storage.DAO
             var storageDbEntities = new StorageDBEntities();
 
             List<ProductModel> list = (from p in storageDbEntities.Products
-                                       orderby p.Code
                                        select new ProductModel
                                        {
                                            ID = p.ID,
@@ -53,6 +53,8 @@ namespace Storage.DAO
                                             }
                                        }).ToList();
 
+            list = list.OrderBy(l => Convert.ToInt32(l.Code)).ToList();
+
             return list;
         }
 
@@ -62,7 +64,6 @@ namespace Storage.DAO
 
             List<ProductModel> list = (from p in storageDbEntities.Products
                                        where p.CategoryID == categoryID
-                                       orderby p.Code
                                        select new ProductModel
                                        {
                                            ID = p.ID,
@@ -78,6 +79,8 @@ namespace Storage.DAO
                                                Name = p.Category.Name
                                            }
                                        }).ToList();
+
+            list = list.OrderBy(l => Convert.ToInt32(l.Code)).ToList();
 
             return list;
         }

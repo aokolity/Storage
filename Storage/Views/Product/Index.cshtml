@@ -1,4 +1,5 @@
-﻿@model IEnumerable<Storage.Models.ProductModel>
+﻿@using Storage.Helpers
+@model IEnumerable<Storage.Models.ProductModel>
 
 @{
     ViewBag.Title = "Список Товаров";
@@ -19,37 +20,36 @@
     </p>
 }
 
-
-<table class="table">
+<table class="table" width="100%">
     <tr>
-        <th>
+        <th style="text-align: center;">
             Код
         </th>
-        <th>
+        <th style="text-align: center;">
             Наименование
         </th>
-        <th>
+        <th style="text-align: center;">
             Категория
         </th>
-        <th>
-            Единица измерения
+        <th style="text-align: center; width:80px;">
+            Ед.
         </th>
-        <th>
+        <th style="text-align: center; width:60px;">
             Цена (опт)
         </th>
-        <th>
+        <th style="text-align: center; width:90px;">
             Цена (мелкий опт)
         </th>
-        <th>
+        <th style="text-align: center; width:60px;">
             Цена (розница)
         </th>
-        <th></th>
+        <th style="width: 230px;"></th>
     </tr>
 
 @foreach (var item in Model)
 {
     <tr>
-        <td>
+        <td style="text-align: center;">
             @Html.DisplayFor(modelItem => item.Code)
         </td>
         <td>
@@ -58,17 +58,17 @@
         <td>
             @Html.DisplayFor(modelItem => item.Category.Name)
         </td>
-        <td>
+        <td style='text-align: left'>
             @Html.DisplayFor(modelItem => item.Unit)
         </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.WholesalePrice)
+        <td style='text-align: right'>
+            @CurrencyHelper.FormatCurrency(item.WholesalePrice)
         </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ShallowWholesalePrice)
+        <td style='text-align: right'>
+            @CurrencyHelper.FormatCurrency(item.ShallowWholesalePrice)
         </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.RetailPrice)
+        <td style='text-align: right'>
+            @CurrencyHelper.FormatCurrency(item.RetailPrice)
         </td>
         <td>
             @Html.ActionLink("Редактировать", "Edit", new { id = item.ID }) |

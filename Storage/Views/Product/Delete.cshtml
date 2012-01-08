@@ -1,4 +1,5 @@
-﻿@model Storage.Models.ProductModel
+﻿@using Storage.Helpers
+@model Storage.Models.ProductModel
 
 @{
     ViewBag.Title = "Удалить Товар";
@@ -36,21 +37,21 @@
         <strong>@Html.LabelFor(model => model.WholesalePrice)</strong>
     </div>
     <div class="display-field">
-        @Html.DisplayFor(model => model.WholesalePrice)
+        @CurrencyHelper.FormatCurrency(Model.WholesalePrice)
     </div>
     <br/>
     <div class="display-label">
         <strong>@Html.LabelFor(model => model.ShallowWholesalePrice)</strong>
     </div>
     <div class="display-field">
-        @Html.DisplayFor(model => model.ShallowWholesalePrice)
+        @CurrencyHelper.FormatCurrency(Model.ShallowWholesalePrice)
     </div>
     <br/>
     <div class="display-label">
         <strong>@Html.LabelFor(model => model.RetailPrice)</strong>
     </div>
     <div class="display-field">
-        @Html.DisplayFor(model => model.RetailPrice)
+        @CurrencyHelper.FormatCurrency(Model.RetailPrice)
     </div>
 </fieldset>
 @using (Html.BeginForm()) {
