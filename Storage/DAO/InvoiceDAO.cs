@@ -129,5 +129,24 @@ namespace Storage.DAO
 
             storageDbEntities.SaveChanges();
         }
+
+        public static void DeleteInvoice(int id)
+        {
+            var storageDbEntities = new StorageDBEntities();
+
+            Invoice invoice = storageDbEntities.Invoices.Where(p => p.ID == id).FirstOrDefault();
+
+            if (invoice != null)
+            {
+                foreach (ProductsInInvoice productsInInvoice in invoice.ProductsInInvoices.ToList())
+                {
+                    storageDbEntities.ProductsInInvoices.DeleteObject(productsInInvoice);
+                    storageDbEntities.SaveChanges();
+                }
+
+                storageDbEntities.Invoices.DeleteObject(invoice);
+                storageDbEntities.SaveChanges();
+            }
+        }
     }
 }

@@ -19,6 +19,12 @@ namespace Storage
                 "InvoicePrint",
                 "Invoice/Print/{id}",
                 new { controller = "Invoice", action = "Print", id = UrlParameter.Optional }
+            );
+
+            routes.MapRoute(
+                "InvoiceDelete",
+                "Invoice/{action}/{type}/{id}",
+                new { controller = "Invoice", action = "Delete" }
             ); 
 
             routes.MapRoute(

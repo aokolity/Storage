@@ -13,8 +13,12 @@ function GetProductByCode(code, parentRow, getProductByCodeURL) {
                 $('.productPrice', parentRow).html(json.Price);
                 $('.hiddenPrice', parentRow).val(json.Price);
                 $('.hiddenProductID', parentRow).val(json.ID);
+
+                $('.productQuantity', parentRow).focus();
             }
             else {
+                $('.productCode', parentRow).focus().select();
+                
                 alert(json.error);
             }
         }
@@ -22,15 +26,22 @@ function GetProductByCode(code, parentRow, getProductByCodeURL) {
 }
 
 function SetProductCodeEvent(getProductByCodeURL) {
-    $('.productCode').live('blur', function () {
-        if (CheckExistingCodeRow($(this))) {
-            return;
-        }
+    $('.productCode').live('keypress', function (e) {
+        var keyCode = (e.keyCode ? e.keyCode : e.which);
 
-        var code = $(this).val();
+        // Enter key code
+        if (keyCode == 13 || keyCode == 9) {
+            if (CheckExistingCodeRow($(this))) {
+                return false;
+            }
 
-        if (code) {
-            GetProductByCode(code, $(this).parent().parent(), getProductByCodeURL);
+            var code = $(this).val();
+
+            if (code) {
+                GetProductByCode(code, $(this).parent().parent(), getProductByCodeURL);
+            }
+
+            return false;
         }
     });
 }
@@ -54,27 +65,34 @@ function CheckExistingCodeRow(currentProductCodeElement) {
 }
 
 function SetProductQuantityEvent() {
-    $('.productQuantity').live('blur', function () {
-        var quantity = $(this).val();
+    $('.productQuantity').live('keypress', function (e) {
+        var keyCode = (e.keyCode ? e.keyCode : e.which);
 
-        if (quantity) {
-            var parentRow = $(this).parent().parent();
+        // Enter key code
+        if (keyCode == 13 || keyCode == 9) {
+            var quantity = $(this).val();
 
-            var price = $('.productPrice', parentRow).asNumber({ region: currentRegion });
-            var number = $('.rowNumber', parentRow).html();
-            var tabIndex = $('.productQuantity', parentRow).attr("tabindex");
+            if (quantity) {
+                var parentRow = $(this).parent().parent();
 
-            $('.total', parentRow).html(quantity * price).formatCurrency({ region: currentRegion });
+                var price = $('.productPrice', parentRow).asNumber({ region: currentRegion });
+                var number = $('.rowNumber', parentRow).html();
+                var tabIndex = $('.productQuantity', parentRow).attr("tabindex");
 
-            var parentTable = $(this).parent().parent().parent();
+                $('.total', parentRow).html(quantity * price).formatCurrency({ region: currentRegion });
 
-            $("tr:last", parentTable).before(rowTemplate.format(parseInt(number) + 1, parseInt(tabIndex) + 1, parseInt(tabIndex) + 2, parseInt(number)));
+                var parentTable = $(this).parent().parent().parent();
 
-            var newRow = $("tr:last", parentTable).prev();
-            $('.productCode', newRow).focus();
+                $("tr:last", parentTable).before(rowTemplate.format(parseInt(number) + 1, parseInt(tabIndex) + 1, parseInt(tabIndex) + 2, parseInt(number)));
 
-            UpdateTable();
-            UpdateMasterTotal();
+                var newRow = $("tr:last", parentTable).prev();
+                $('.productCode', newRow).focus();
+
+                UpdateTable();
+                UpdateMasterTotal();
+            }
+
+            return false;
         }
     });
 }

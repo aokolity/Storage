@@ -75,5 +75,12 @@ namespace Storage.Controllers
 
             return View(invoiceModel);
         }
+
+        public ActionResult Delete(int id, string type)
+        {
+            InvoiceDAO.DeleteInvoice(id);
+
+            return RedirectToAction("Index", new {type = type});
+        }
     }
 }
