@@ -8,6 +8,13 @@ namespace Storage.DAO
 {
     public static class ProductDAO
     {
+        public static bool IsProductCodeAvailable(string code)
+        {
+            var storageDbEntities = new StorageDBEntities();
+
+            return storageDbEntities.Products.Where(p => p.Code == code).FirstOrDefault() == null;
+        }
+
         public static ProductModel GetProduct(int id)
         {
             var storageDbEntities = new StorageDBEntities();

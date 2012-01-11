@@ -75,11 +75,11 @@ function SetProductQuantityEvent() {
             if (quantity) {
                 var parentRow = $(this).parent().parent();
 
-                var price = $('.productPrice', parentRow).asNumber({ region: currentRegion });
+                var price = $('.productPrice', parentRow).asNumber({ region: globalCurrentRegion });
                 var number = $('.rowNumber', parentRow).html();
                 var tabIndex = $('.productQuantity', parentRow).attr("tabindex");
 
-                $('.total', parentRow).html(quantity * price).formatCurrency({ region: currentRegion });
+                $('.total', parentRow).html(quantity * price).formatCurrency({ region: globalCurrentRegion });
 
                 var parentTable = $(this).parent().parent().parent();
 
@@ -124,13 +124,13 @@ function UpdateMasterTotal() {
             var totalHtml = element.html();
 
             if (totalHtml) {
-                var total = element.asNumber({ region: currentRegion });
+                var total = element.asNumber({ region: globalCurrentRegion });
                 masterTotal += total;
             }
         }
     });
 
-    $('.mastertotal').html(masterTotal).formatCurrency({ region: currentRegion });
+    $('.mastertotal').html(masterTotal).formatCurrency({ region: globalCurrentRegion });
 }
 
 function InsertFirstRow() {

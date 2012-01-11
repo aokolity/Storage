@@ -1,6 +1,8 @@
-﻿using System.Web;
+﻿using System.Linq;
+using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using Storage.ValidatorProviders;
 
 namespace Storage
 {
@@ -47,6 +49,11 @@ namespace Storage
 
             RegisterGlobalFilters(GlobalFilters.Filters);
             RegisterRoutes(RouteTable.Routes);
+
+            var existingProvider = ModelValidatorProviders.Providers.Single(x => x is ClientDataTypeModelValidatorProvider);
+
+            ModelValidatorProviders.Providers.Remove(existingProvider);
+            ModelValidatorProviders.Providers.Add(new ClientNumberValidatorProvider());
         }
     }
 }

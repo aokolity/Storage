@@ -52,7 +52,7 @@
 
         // check for region setting
         if (settings.region.length > 0) {
-            settings = $.extend(settings, getRegionOrCulture(settings.region));
+            settings = $.extend(settings, GetRegionOrCulture(settings.region));
             
             // hide currency symbol
             settings.symbol = '';
@@ -162,7 +162,7 @@
 
         settings = jQuery.extend(defaults, settings);
         if (settings.region.length > 0) {
-            settings = $.extend(settings, getRegionOrCulture(settings.region));
+            settings = $.extend(settings, GetRegionOrCulture(settings.region));
         }
         settings.regex = generateRegex(settings);
 
@@ -183,7 +183,7 @@
         }, $.formatCurrency.regions['']);
         settings = jQuery.extend(defaults, settings);
         if (settings.region.length > 0) {
-            settings = $.extend(settings, getRegionOrCulture(settings.region));
+            settings = $.extend(settings, GetRegionOrCulture(settings.region));
         }
         settings.regex = generateRegex(settings);
         settings.parseType = validateParseType(settings.parseType);
@@ -207,21 +207,6 @@
 
         return window['parse' + settings.parseType](num);
     };
-
-    function getRegionOrCulture(region) {
-        var regionInfo = $.formatCurrency.regions[region];
-        if (regionInfo) {
-            return regionInfo;
-        }
-        else {
-            if (/(\w+)-(\w+)/g.test(region)) {
-                var culture = region.replace(/(\w+)-(\w+)/g, "$1");
-                return $.formatCurrency.regions[culture];
-            }
-        }
-        // fallback to extend(null) (i.e. nothing)
-        return null;
-    }
 
     function validateParseType(parseType) {
         switch (parseType.toLowerCase()) {
