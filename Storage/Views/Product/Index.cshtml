@@ -16,6 +16,7 @@
 {
     <p class="category-filter">
         Категория: @Html.DropDownList("CategoryID", (IEnumerable<SelectListItem>)ViewBag.Categories)
+        Код: <input id="Code" name="Code" size="4" maxlength="4" value="@ViewBag.Code"/>
         <input type="submit" value="Фильтровать" />
     </p>
 }

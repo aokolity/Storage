@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Objects;
 using System.Linq;
 using Storage.Models;
 using Storage.ORM;
@@ -65,28 +66,38 @@ namespace Storage.DAO
             return list;
         }
 
-        public static List<ProductModel> GetProductListByCategoryID(int categoryID)
+        public static List<ProductModel> GetProductListByCategoryIDAndCode(int categoryID, string code)
         {
             var storageDbEntities = new StorageDBEntities();
 
-            List<ProductModel> list = (from p in storageDbEntities.Products
-                                       where p.CategoryID == categoryID
-                                       select new ProductModel
-                                       {
-                                           ID = p.ID,
-                                           Code = p.Code,
-                                           Name = p.Name,
-                                           WholesalePrice = p.WholesalePrice,
-                                           ShallowWholesalePrice = p.ShallowWholesalePrice,
-                                           RetailPrice = p.RetailPrice,
-                                           Unit = p.Unit,
-                                           Category = new CategoryModel
-                                           {
-                                               ID = (int?)p.Category.ID,
-                                               Name = p.Category.Name
-                                           }
-                                       }).ToList();
+            IQueryable<Product> products = storageDbEntities.Products;
 
+            if(categoryID != -1)
+            {
+                products = products.Where(p => p.CategoryID == categoryID);
+            }
+
+            if(!String.IsNullOrEmpty(code))
+            {
+                products = products.Where(p => p.Code == code);
+            }
+
+            List<ProductModel> list = products.Select(p => new ProductModel
+                                                               {
+                                                                   ID = p.ID,
+                                                                   Code = p.Code,
+                                                                   Name = p.Name,
+                                                                   WholesalePrice = p.WholesalePrice,
+                                                                   ShallowWholesalePrice = p.ShallowWholesalePrice,
+                                                                   RetailPrice = p.RetailPrice,
+                                                                   Unit = p.Unit,
+                                                                   Category = new CategoryModel
+                                                                                  {
+                                                                                      ID = (int?) p.Category.ID,
+                                                                                      Name = p.Category.Name
+                                                                                  }
+                                                               }).ToList();
+                
             list = list.OrderBy(l => Convert.ToInt32(l.Code)).ToList();
 
             return list;

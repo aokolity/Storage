@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace Storage.Models
 {
@@ -6,6 +7,7 @@ namespace Storage.Models
     {
         public int? ID { get; set; }
         [DisplayName("Название")]
+        [Required(ErrorMessage = "Введите пожалуйста Название")]
         public string Name { get; set; }
     }
 }

@@ -29,7 +29,7 @@ namespace Storage.Controllers
         // POST: /Product/
 
         [HttpPost]
-        public ActionResult Index(int categoryID)
+        public ActionResult Index(int categoryID, string code)
         {
             List<SelectListItem> categories = GetCategories();
 
@@ -44,8 +44,9 @@ namespace Storage.Controllers
             }
 
             ViewBag.Categories = categories;
+            ViewBag.Code = code;
 
-            List<ProductModel> list = categoryID != -1 ? ProductDAO.GetProductListByCategoryID(categoryID) : ProductDAO.GetProductList();
+            List<ProductModel> list = ProductDAO.GetProductListByCategoryIDAndCode(categoryID, code);
 
             return View(list);
         }
@@ -186,7 +187,7 @@ namespace Storage.Controllers
 
             ViewBag.Categories = categories;
 
-            List<ProductModel> list = categoryID != -1 ? ProductDAO.GetProductListByCategoryID(categoryID) : ProductDAO.GetProductList();
+            List<ProductModel> list = ProductDAO.GetProductListByCategoryIDAndCode(categoryID, string.Empty);
 
             return View(list);
         }
