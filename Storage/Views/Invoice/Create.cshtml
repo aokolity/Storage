@@ -37,7 +37,7 @@ else
 <table class="table">
     <tr>
         <td>
-            Поставщик:
+            <label for="InvoiceViewModel_InvoiceModel_Supplier_ID">Поставщик:</label>
         </td>
         <td>
             @Html.DropDownList("InvoiceViewModel.InvoiceModel.Supplier.ID", Model.Clients)
@@ -45,7 +45,7 @@ else
     </tr>
     <tr>
         <td>
-            Получатель:
+            <label for="InvoiceViewModel_InvoiceModel_Recipient_ID">Получатель:</label>
         </td>
         <td>
             @Html.DropDownList("InvoiceViewModel.InvoiceModel.Recipient.ID", Model.Clients)
@@ -53,7 +53,7 @@ else
     </tr>
     <tr>
         <td>
-            Цена:
+            <label for="PriceType">Цена:</label>
         </td>
         <td>
             <select name="PriceType" id="PriceType">
