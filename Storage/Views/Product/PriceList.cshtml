@@ -14,7 +14,7 @@
 
 @using (Html.BeginForm()) 
 {
-    <p class="category-filter">
+    <p class="pricelist-filter">
         Категория: @Html.DropDownList("CategoryID", (IEnumerable<SelectListItem>)ViewBag.Categories)
         <input type="submit" value="Фильтровать" />
     </p>

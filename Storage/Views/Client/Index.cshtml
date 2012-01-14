@@ -10,7 +10,7 @@
 <p>
     @Html.ActionLink("Создать Клиента", "Create")
 </p>
-<table class="table">
+<table class="table" width="100%">
     <tr>
         <th>
             ФИО
@@ -21,7 +21,9 @@
         <th>
             Адрес
         </th>
-        <th></th>
+        <th style="width: 222px;">
+            Действия
+        </th>
     </tr>
 
 @foreach (var item in Model) {

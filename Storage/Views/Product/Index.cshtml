@@ -14,9 +14,16 @@
 
 @using (Html.BeginForm())
 {
-    <p class="category-filter">
-        Категория: @Html.DropDownList("CategoryID", (IEnumerable<SelectListItem>)ViewBag.Categories)
-        Код: <input id="Code" name="Code" size="4" maxlength="4" value="@ViewBag.Code"/>
+    <p>
+        <span style="margin-right: 10px;">
+            <label for="CategoryID">Категория:</label> @Html.DropDownList("CategoryID", (IEnumerable<SelectListItem>)ViewBag.Categories)
+        </span>
+        <span style="margin-right: 10px;">
+            <label for="Code">Код:</label> <input id="Code" name="Code" size="4" maxlength="4" value="@ViewBag.Code"/>
+        </span>
+        <span style="margin-right: 10px;">
+            <label for="Name">Наименование:</label> <input id="Name" name="Name" size="20" maxlength="70" value="@ViewBag.Name"/>
+        </span>
         <input type="submit" value="Фильтровать" />
     </p>
 }
@@ -44,7 +51,9 @@
         <th style="text-align: center; width:60px;">
             Цена (розница)
         </th>
-        <th style="width: 230px;"></th>
+        <th style="width: 222px;">
+            Действия
+        </th>
     </tr>
 
 @foreach (var item in Model)

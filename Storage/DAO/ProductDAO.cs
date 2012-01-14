@@ -66,7 +66,12 @@ namespace Storage.DAO
             return list;
         }
 
-        public static List<ProductModel> GetProductListByCategoryIDAndCode(int categoryID, string code)
+        public static List<ProductModel> GetProductListByCategory(int categoryID)
+        {
+            return GetProductListByFilter(categoryID, String.Empty, String.Empty);
+        }
+
+        public static List<ProductModel> GetProductListByFilter(int categoryID, string code, string name)
         {
             var storageDbEntities = new StorageDBEntities();
 
@@ -80,6 +85,11 @@ namespace Storage.DAO
             if(!String.IsNullOrEmpty(code))
             {
                 products = products.Where(p => p.Code == code);
+            }
+
+            if(!String.IsNullOrEmpty(name))
+            {
+                products = products.Where(p => p.Name.Contains(name));
             }
 
             List<ProductModel> list = products.Select(p => new ProductModel
