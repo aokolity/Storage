@@ -65,15 +65,11 @@ namespace Storage.DAO
                                                     Number = invoice.Number
                                                 };
 
-
-                int position = 1;
-
                 foreach (ProductsInInvoice productsInInvoice in invoice.ProductsInInvoices.ToList())
                 {
                     ProductsInInvoiceModel productsInInvoiceModel = new ProductsInInvoiceModel
                                                                         {
                                                                             ID = productsInInvoice.ID,
-                                                                            Position = position,
                                                                             Price = productsInInvoice.Price,
                                                                             Quantity = productsInInvoice.Quantity,
                                                                             Total = productsInInvoice.Price * Convert.ToDecimal(productsInInvoice.Quantity),
@@ -89,11 +85,14 @@ namespace Storage.DAO
                     invoiceModel.Products.Add(productsInInvoiceModel);
 
                     invoiceModel.MasterTotal += productsInInvoiceModel.Total;
-
-                    position++;
                 }
 
                 invoiceModel.Products = invoiceModel.Products.OrderBy(p => Convert.ToInt32(p.Product.Code)).ToList();
+
+                for (int position = 0; position < invoiceModel.Products.Count; position++)
+                {
+                    invoiceModel.Products[position].Position = position + 1;
+                }
 
                 return invoiceModel;
             }
@@ -105,22 +104,23 @@ namespace Storage.DAO
         {
             var storageDbEntities = new StorageDBEntities();
 
-            Invoice invoice = new Invoice();
-
-            invoice.SupplierID = invoiceModel.Supplier.ID;
-            invoice.RecipientID = invoiceModel.Recipient.ID;
-
-            invoice.Date = invoiceModel.Date;
-            invoice.Type = invoiceModel.Type;
-            invoice.Number = invoiceModel.Number;
+            Invoice invoice = new Invoice
+                                  {
+                                      SupplierID = invoiceModel.Supplier.ID,
+                                      RecipientID = invoiceModel.Recipient.ID,
+                                      Date = invoiceModel.Date,
+                                      Type = invoiceModel.Type,
+                                      Number = invoiceModel.Number
+                                  };
 
             foreach (ProductsInInvoiceModel productsInInvoiceModel in invoiceModel.Products.Where(p => p.ProductID > 0).ToList())
             {
-                ProductsInInvoice productsInInvoice = new ProductsInInvoice();
-
-                productsInInvoice.Price = productsInInvoiceModel.Price;
-                productsInInvoice.Quantity = productsInInvoiceModel.Quantity;
-                productsInInvoice.ProductID = productsInInvoiceModel.ProductID;
+                ProductsInInvoice productsInInvoice = new ProductsInInvoice
+                                                          {
+                                                              Price = productsInInvoiceModel.Price,
+                                                              Quantity = productsInInvoiceModel.Quantity,
+                                                              ProductID = productsInInvoiceModel.ProductID
+                                                          };
 
                 invoice.ProductsInInvoices.Add(productsInInvoice);
             }

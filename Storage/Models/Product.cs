@@ -14,7 +14,7 @@ namespace Storage.Models
         public int ID { get; set; }
         [DisplayName("Код")]
         [Required(ErrorMessage = "Введите пожалуйста Код")]
-        [StringLength(4, ErrorMessage = "Максимальная длина Кода 4 символа")]
+        [StringLength(6, ErrorMessage = "Максимальная длина Кода 6 символов")]
         [Remote("IsProductCodeAvailable", "Validation", AdditionalFields = "CodeInitialValue")]
         public string Code { get; set; }
         [DataType(DataType.MultilineText)]

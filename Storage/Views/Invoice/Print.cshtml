@@ -8,20 +8,20 @@
 
 @if (ViewBag.Type == "Income")
 {
-    <h2>Приходная накладная № @Model.Number от @Model.Date.Day @DateTimeHelper.GetMonthName(Model.Date) @Model.Date.Year г.</h2>
+    <h2 style="margin-bottom: 0px;">Приходная накладная № @Model.Number от @Model.Date.Day @DateTimeHelper.GetMonthName(Model.Date) @Model.Date.Year г.</h2>
 }
 else
 {
-    <h2>Расходная накладная № @Model.Number от @Model.Date.Day @DateTimeHelper.GetMonthName(Model.Date) @Model.Date.Year г.</h2>
+    <h2 style="margin-bottom: 0px;">Расходная накладная № @Model.Number от @Model.Date.Day @DateTimeHelper.GetMonthName(Model.Date) @Model.Date.Year г.</h2>
 }
 
-<hr class="printline" style="position:relative;top:-10px;"/>
+<hr class="printline" />
 
-<div class="print-link" style="padding-bottom: 20px;">
+<div class="print-link" style="margin: 12px 0px 6px 0px">
     <a href="JavaScript:window.print();">@(ViewBag.Type == "Income" ? "Распечатать Приходную Накладную" : "Распечатать Расходную Накладную")</a>
 </div>
 
-<table border="0" style="border-collapse:collapse;" cellspacing="0">
+<table border="0" style="border-collapse: separate; border-spacing:0 10px;" cellspacing="0">
     <tr>
         <td style="padding-right: 60px; vertical-align: top;">
             Поставщик
@@ -31,27 +31,31 @@ else
                 <strong>@Model.Supplier.Name</strong>
             </div>
             <div>
-                @Model.Supplier.Address
+                тел. @Model.Supplier.Telephone, @Model.Supplier.Address
             </div>
         </td>
     </tr>
-    <tr style="height: 60px">
-        <td style="padding-right: 60px;">
+    <tr>
+        <td style="padding-right: 60px; vertical-align: top;">
             Получатель
         </td>
         <td>
             <div>
                 <strong>@Model.Recipient.Name</strong>
             </div>
+            <div>
+                тел. @Model.Recipient.Telephone, @Model.Recipient.Address
+            </div>
         </td>
     </tr>
 </table>
+<div style="height: 8px;"></div>
 <table class="table" width="100%">
     <tr>
         <th style="text-align: center; width: 20px;">
             №
         </th>
-        <th style="text-align: center; width: 30px;">
+        <th style="text-align: center; width: 42px;">
             Код
         </th>
         <th style="text-align: center;">
