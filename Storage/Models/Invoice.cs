@@ -24,6 +24,7 @@ namespace Storage.Models
         [DisplayName("Номер")]
         public int Number { get; set; }
         public decimal MasterTotal { get; set; }
+        public string PriceType { get; set; }
     }
 
     public class ProductsInInvoiceModel

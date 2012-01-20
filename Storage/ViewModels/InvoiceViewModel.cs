@@ -9,10 +9,13 @@ namespace Storage.ViewModels
         public InvoiceViewModel()
         {
             InvoiceModel = new InvoiceModel();
+            
             Clients = new List<SelectListItem>();
         }
 
         public InvoiceModel InvoiceModel { get; set; }
+
         public List<SelectListItem> Clients { get; set; }
+        public List<SelectListItem> PriceTypes { get; set; }
     }
 }

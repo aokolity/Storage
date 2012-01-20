@@ -62,7 +62,9 @@ namespace Storage.DAO
                                                                     },
                                                     Date = invoice.Date,
                                                     Type = invoice.Type,
-                                                    Number = invoice.Number
+                                                    Number = invoice.Number,
+                                                    PriceType = invoice.PriceType,
+                                                    ID = invoice.ID
                                                 };
 
                 foreach (ProductsInInvoice productsInInvoice in invoice.ProductsInInvoices.ToList())
@@ -110,7 +112,8 @@ namespace Storage.DAO
                                       RecipientID = invoiceModel.Recipient.ID,
                                       Date = invoiceModel.Date,
                                       Type = invoiceModel.Type,
-                                      Number = invoiceModel.Number
+                                      Number = invoiceModel.Number,
+                                      PriceType = invoiceModel.PriceType
                                   };
 
             foreach (ProductsInInvoiceModel productsInInvoiceModel in invoiceModel.Products.Where(p => p.ProductID > 0).ToList())
@@ -147,6 +150,11 @@ namespace Storage.DAO
                 storageDbEntities.Invoices.DeleteObject(invoice);
                 storageDbEntities.SaveChanges();
             }
+        }
+
+        public static void UpdateInvoice(InvoiceModel invoiceModel)
+        {
+            
         }
     }
 }

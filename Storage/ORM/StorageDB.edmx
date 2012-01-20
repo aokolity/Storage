@@ -58,6 +58,7 @@
           <Property Name="Supplier" Type="int" Nullable="false" />
           <Property Name="Recipient" Type="int" Nullable="false" />
           <Property Name="Number" Type="int" Nullable="false" />
+          <Property Name="PriceType" Type="nvarchar" MaxLength="30" />
         </EntityType>
         <EntityType Name="Product">
           <Key>
@@ -197,6 +198,7 @@
           <NavigationProperty Name="Supplier" Relationship="StorageDBModel.Supplier____Invoice" FromRole="Invoice" ToRole="Client" />
           <NavigationProperty Name="ProductsInInvoices" Relationship="StorageDBModel.Invoice____ProductsInInvoice" FromRole="Invoice" ToRole="ProductsInInvoice" />
           <Property Type="Int32" Name="Number" Nullable="false" />
+          <Property Type="String" Name="PriceType" MaxLength="20" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Product">
           <Key>
@@ -306,7 +308,8 @@
             <ScalarProperty Name="Address" ColumnName="Address" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
           <EntitySetMapping Name="Invoices"><EntityTypeMapping TypeName="StorageDBModel.Invoice"><MappingFragment StoreEntitySet="Invoice">
-            <ScalarProperty Name="Number" ColumnName="Number" />
+            <ScalarProperty Name="PriceType" ColumnName="PriceType" />
+                <ScalarProperty Name="Number" ColumnName="Number" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
             <ScalarProperty Name="Date" ColumnName="Date" />
             <ScalarProperty Name="Type" ColumnName="Type" />

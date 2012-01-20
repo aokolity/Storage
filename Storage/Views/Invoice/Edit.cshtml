@@ -2,7 +2,7 @@
 @model Storage.ViewModels.InvoiceViewModel
 
 @{
-    ViewBag.Title = ViewBag.Type == "Income" ? "Создать Приходную Накладную" : "Создать Расходную Накладную";
+    ViewBag.Title = ViewBag.Type == "Income" ? "Редактировать Приходную Накладную" : "Редактировать Расходную Накладную";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -10,11 +10,12 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
-        InsertFirstRow();
-
         SetProductCodeEvent('@Url.Action("GetProductByCode", "Product")');
         SetProductQuantityEvent();
         SetDeleteLineEvent();
+
+        UpdateTable();
+        UpdateMasterTotal();
     });
 
 </script>
@@ -33,6 +34,7 @@ else
 @Html.Hidden("InvoiceModel.Date", Model.InvoiceModel.Date)
 @Html.Hidden("InvoiceModel.Type", Model.InvoiceModel.Type)
 @Html.Hidden("InvoiceModel.Number", Model.InvoiceModel.Number)
+@Html.Hidden("InvoiceModel.ID", Model.InvoiceModel.ID)
     
 <table class="table">
     <tr>
@@ -40,7 +42,7 @@ else
             @Html.LabelFor(model => model.InvoiceModel.Supplier.ID, "Поставщик:")
         </td>
         <td>
-            @Html.DropDownList("InvoiceModel.Supplier.ID", Model.Clients)
+            @Html.DropDownListFor(model => model.InvoiceModel.Supplier.ID, Model.Clients)
         </td>
     </tr>
     <tr>
@@ -48,7 +50,7 @@ else
             @Html.LabelFor(model => model.InvoiceModel.Recipient.ID, "Получатель:")
         </td>
         <td>
-            @Html.DropDownList("InvoiceModel.Recipient.ID", Model.Clients)
+            @Html.DropDownListFor(model => model.InvoiceModel.Recipient.ID, Model.Clients)
         </td>
     </tr>
     <tr>
@@ -56,7 +58,7 @@ else
             @Html.LabelFor(model => model.InvoiceModel.PriceType, "Цена:")
         </td>
         <td>
-            @Html.DropDownList("InvoiceModel.PriceType", Model.PriceTypes)
+            @Html.DropDownListFor(model => model.InvoiceModel.PriceType, Model.PriceTypes)
         </td>
     </tr>
 </table>
@@ -88,6 +90,39 @@ else
             Действия
         </th>
     </tr>
+    @foreach (var product in Model.InvoiceModel.Products)
+    {
+        int position = Model.InvoiceModel.Products.IndexOf(product);
+        
+        <tr>
+            <td style='text-align: center'>
+                <span class='rowNumber'></span>
+            </td>
+            <td>
+                <input id='productCode' class='productCode' type='text' value="@product.Product.Code"/>
+                <input class='hiddenProductID' id='InvoiceModel_Products[@position]_ProductID' name='InvoiceModel.Products[@position].ProductID' type='hidden' value='@product.Product.Code' />
+            </td>
+            <td style='text-align: left'>
+                <span id='productName' class='productName'>@product.Product.Name</span>
+            </td>
+            <td>
+                <input id='InvoiceModel_Products[@position]_Quantity' name='InvoiceModel.Products[@position].Quantity' value="@product.Quantity" class='productQuantity' type='text' style='text-align: right'/>
+            </td>
+            <td style='text-align: left'>
+                <span id='productUnit' class='productUnit'>@product.Product.Unit</span>
+            </td>
+            <td style='text-align: right'>
+                <span id='productPrice' class='productPrice'>@CurrencyHelper.FormatCurrency(product.Price)</span>
+                <input class='hiddenPrice' id='InvoiceModel_Products[@position]_Price' name='InvoiceModel.Products[@position].Price' type='hidden' value='@product.Price' />
+            </td>
+            <td style='text-align: right'>
+                <span id='total' class='total'>@CurrencyHelper.FormatCurrency(product.Total)</span>
+            </td>
+            <td style='text-align:center;'>
+                <a class='deleteline' href='#'>Удалить</a>
+            </td>
+        </tr>
+    }
     <tr>
         <td colspan="6" style="text-align: right; border: 0px;">
             Итого:
@@ -99,6 +134,6 @@ else
 </table>
 
 <p>
-    <input type="submit" value="Сохранить" />
+    <input type="submit" value="Изменить" />
 </p>
 }

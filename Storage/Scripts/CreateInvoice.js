@@ -1,11 +1,11 @@
-﻿var rowTemplate = "<tr><td style='text-align: center'><span class='rowNumber'>{0}</span></td><td><input id='productCode' tabindex='{1}' class='productCode' type='text'/><input class='hiddenProductID' id='InvoiceViewModel_InvoiceModel_Products[{3}]_ProductID' name='InvoiceViewModel.InvoiceModel.Products[{3}].ProductID' type='hidden' value='' /></td><td style='text-align: left'><span id='productName' class='productName'></span></td><td><input id='InvoiceViewModel_InvoiceModel_Products[{3}]_Quantity' name='InvoiceViewModel.InvoiceModel.Products[{3}].Quantity' tabindex='{2}' class='productQuantity' type='text' style='text-align: right'/></td><td style='text-align: left'><span id='productUnit' class='productUnit'></span></td><td style='text-align: right'><span id='productPrice' class='productPrice'></span><input class='hiddenPrice' id='InvoiceViewModel_InvoiceModel_Products[{3}]_Price' name='InvoiceViewModel.InvoiceModel.Products[{3}].Price' type='hidden' value='' /></td><td style='text-align: right'><span id='total' class='total'></span></td><td style='text-align:center;'><a class='deleteline' href='#'>Удалить</a></td></tr>";
+﻿var rowTemplate = "<tr><td style='text-align: center'><span class='rowNumber'>{0}</span></td><td><input id='productCode' tabindex='{1}' class='productCode' type='text'/><input class='hiddenProductID' id='InvoiceModel_Products[{3}]_ProductID' name='InvoiceModel.Products[{3}].ProductID' type='hidden' value='' /></td><td style='text-align: left'><span id='productName' class='productName'></span></td><td><input id='InvoiceModel_Products[{3}]_Quantity' name='InvoiceModel.Products[{3}].Quantity' tabindex='{2}' class='productQuantity' type='text' style='text-align: right'/></td><td style='text-align: left'><span id='productUnit' class='productUnit'></span></td><td style='text-align: right'><span id='productPrice' class='productPrice'></span><input class='hiddenPrice' id='InvoiceModel_Products[{3}]_Price' name='InvoiceModel.Products[{3}].Price' type='hidden' value='' /></td><td style='text-align: right'><span id='total' class='total'></span></td><td style='text-align:center;'><a class='deleteline' href='#'>Удалить</a></td></tr>";
 
 function GetProductByCode(code, parentRow, getProductByCodeURL) {
     $.ajax({
         url: getProductByCodeURL,
         dataType: 'json',
         type: 'POST',
-        data: { code: code, priceType: $("#PriceType").val() },
+        data: { code: code, priceType: $("#InvoiceModel_PriceType").val() },
         success: function (json) {
             if (json.success != null) {
                 $('.productName', parentRow).html(json.Name);

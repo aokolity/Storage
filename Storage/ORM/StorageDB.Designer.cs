@@ -671,6 +671,30 @@ namespace Storage.ORM
         private global::System.Int32 _Number;
         partial void OnNumberChanging(global::System.Int32 value);
         partial void OnNumberChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String PriceType
+        {
+            get
+            {
+                return _PriceType;
+            }
+            set
+            {
+                OnPriceTypeChanging(value);
+                ReportPropertyChanging("PriceType");
+                _PriceType = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("PriceType");
+                OnPriceTypeChanged();
+            }
+        }
+        private global::System.String _PriceType;
+        partial void OnPriceTypeChanging(global::System.String value);
+        partial void OnPriceTypeChanged();
 
         #endregion
     

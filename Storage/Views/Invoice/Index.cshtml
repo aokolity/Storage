@@ -40,6 +40,7 @@
             @item.Date.Day @DateTimeHelper.GetMonthName(item.Date) @item.Date.Year г.
         </td>
         <td>
+            @Html.ActionLink("Редактировать", "Edit", new { id = item.ID, type = ViewBag.Type }) |
             @Html.ActionLink("Подготовить к Печати", "Print", new { id=item.ID }) |
             @Html.ActionLink("Удалить", "Delete", new { id = item.ID, type = ViewBag.Type }, new { onclick = "return confirm('Вы уверены, что хотите удалить эту накладную?');" })
         </td>
