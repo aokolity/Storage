@@ -16,6 +16,8 @@
 
         UpdateTable();
         UpdateMasterTotal();
+
+        InsertLastRow();
     });
 
 </script>
@@ -31,10 +33,10 @@ else
 
 @using (Html.BeginForm()) {
 
-@Html.Hidden("InvoiceModel.Date", Model.InvoiceModel.Date)
-@Html.Hidden("InvoiceModel.Type", Model.InvoiceModel.Type)
-@Html.Hidden("InvoiceModel.Number", Model.InvoiceModel.Number)
-@Html.Hidden("InvoiceModel.ID", Model.InvoiceModel.ID)
+@Html.HiddenFor(model => model.InvoiceModel.Date)
+@Html.HiddenFor(model => model.InvoiceModel.Type)
+@Html.HiddenFor(model => model.InvoiceModel.Number)
+@Html.HiddenFor(model => model.InvoiceModel.ID)
     
 <table class="table">
     <tr>
@@ -100,7 +102,7 @@ else
             </td>
             <td>
                 <input id='productCode' class='productCode' type='text' value="@product.Product.Code"/>
-                <input class='hiddenProductID' id='InvoiceModel_Products[@position]_ProductID' name='InvoiceModel.Products[@position].ProductID' type='hidden' value='@product.Product.Code' />
+                <input class='hiddenProductID' id='InvoiceModel_Products[@position]_ProductID' name='InvoiceModel.Products[@position].ProductID' type='hidden' value='@product.Product.ID' />
             </td>
             <td style='text-align: left'>
                 <span id='productName' class='productName'>@product.Product.Name</span>
@@ -134,6 +136,9 @@ else
 </table>
 
 <p>
-    <input type="submit" value="Изменить" />
+    <span style="padding-right: 20px">
+        <input type="submit" value="Изменить" />
+    </span> 
+    @Html.ActionLink(ViewBag.Type == "Income" ? "Вернуться к Списку Приходных Накладных" : "Вернуться к Списку Расходных Накладных", "Index", "Invoice", new { type = ViewBag.Type }, null)
 </p>
 }

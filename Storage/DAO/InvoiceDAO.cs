@@ -154,7 +154,51 @@ namespace Storage.DAO
 
         public static void UpdateInvoice(InvoiceModel invoiceModel)
         {
-            
+            var storageDbEntities = new StorageDBEntities();
+
+            Invoice invoice = storageDbEntities.Invoices.Where(i => i.ID == invoiceModel.ID).FirstOrDefault();
+
+            if (invoice != null)
+            {
+                // updates invoice metadata
+                invoice.SupplierID = invoiceModel.Supplier.ID;
+                invoice.RecipientID = invoiceModel.Recipient.ID;
+                invoice.PriceType = invoiceModel.PriceType;
+
+                foreach (var productInInvoice in invoice.ProductsInInvoices.ToList())
+                {
+                    ProductsInInvoiceModel productsInInvoiceModel = invoiceModel.Products.Where(p => p.ProductID == productInInvoice.ProductID).FirstOrDefault();
+
+                    // product was updated by user
+                    if (productsInInvoiceModel != null)
+                    {
+                        productInInvoice.Price = productsInInvoiceModel.Price;
+                        productInInvoice.Quantity = productsInInvoiceModel.Quantity;
+
+                        invoiceModel.Products.Remove(productsInInvoiceModel);
+                    }
+                    // product was deleted by user
+                    else
+                    {
+                        storageDbEntities.ProductsInInvoices.DeleteObject(productInInvoice);
+                    }
+                }
+
+                // products were created by user
+                foreach (var productsInInvoiceModel in invoiceModel.Products.Where(p => p.ProductID > 0).ToList())
+                {
+                    ProductsInInvoice productsInInvoice = new ProductsInInvoice
+                    {
+                        Price = productsInInvoiceModel.Price,
+                        Quantity = productsInInvoiceModel.Quantity,
+                        ProductID = productsInInvoiceModel.ProductID
+                    };
+
+                    invoice.ProductsInInvoices.Add(productsInInvoice);
+                }
+
+                storageDbEntities.SaveChanges();
+            }
         }
     }
 }

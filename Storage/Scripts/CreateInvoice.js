@@ -105,7 +105,38 @@ function DeleteRow(rowElement) {
     }
 
     UpdateTable();
+    UpdateInputs();
     UpdateMasterTotal();
+}
+
+function UpdateInputs() {
+    var rowNumberPosition = 0;
+
+    $('tr', $('#invoiceProducts')).each(function () {
+        var hiddenProductID = $('.hiddenProductID', $(this));
+        var productQuantity = $('.productQuantity', $(this));
+        var hiddenPrice = $('.hiddenPrice', $(this));
+
+        if (hiddenProductID.length > 0 && productQuantity.length && hiddenPrice.length) {
+            FixCollectonPositionInput(hiddenProductID, rowNumberPosition);
+            FixCollectonPositionInput(productQuantity, rowNumberPosition);
+            FixCollectonPositionInput(hiddenPrice, rowNumberPosition);
+
+            rowNumberPosition++;
+        }
+    });
+}
+
+function FixCollectonPositionInput(input, rowNumberPosition) {
+    input.attr("id", FixCollectionPositionString(input.attr("id"), rowNumberPosition));
+    input.attr("name", FixCollectionPositionString(input.attr("name"), rowNumberPosition));
+}
+
+function FixCollectionPositionString(positionString, position) {
+    var firstIndex = positionString.indexOf("[") + 1;
+    var lastIndex = positionString.lastIndexOf("]");
+
+    return positionString.substr(0, firstIndex) + position + positionString.substr(lastIndex, positionString.length);
 }
 
 function SetDeleteLineEvent() {
@@ -134,7 +165,33 @@ function UpdateMasterTotal() {
 }
 
 function InsertFirstRow() {
-    $("tr:last", $('#invoiceProducts')).before(rowTemplate.format(1, 1, 2, 0));
+    InsertRow(1, 1, 2, 0);
+}
+
+function InsertLastRow() {
+    var rowNumber;
+
+    if ($('.rowNumber').last().html() != null) {
+        rowNumber = parseInt($('.rowNumber').last().html());
+    }
+    else {
+        rowNumber = 0;
+    }
+
+    var productQuantityTabIndex;
+
+    if ($('.productQuantity').last().attr("tabindex") != null) {
+        productQuantityTabIndex = parseInt($('.productQuantity').last().attr("tabindex"));
+    }
+    else {
+        productQuantityTabIndex = 0;
+    }
+
+    InsertRow(rowNumber + 1, productQuantityTabIndex + 1, productQuantityTabIndex + 2, rowNumber);
+}
+
+function InsertRow(rowNumber, productCodeTabIndex, quantityTabIndex, collectionPosition) {
+    $("tr:last", $('#invoiceProducts')).before(rowTemplate.format(rowNumber, productCodeTabIndex, quantityTabIndex, collectionPosition));
 }
 
 function UpdateTable() {
