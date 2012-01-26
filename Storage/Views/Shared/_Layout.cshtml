@@ -20,26 +20,32 @@
 </head>
 
 <body>
-    <div class="menu">
-        <div class="menu-item">
-            @Html.ActionLink("Товар", "Index", "Product")
+    @if (User.Identity.IsAuthenticated)
+    {
+        <div class="menu">
+            <div class="menu-item">
+                @Html.ActionLink("Товар", "Index", "Product")
+            </div>
+            <div class="menu-item">
+                @Html.ActionLink("Категория", "Index", "Category")
+            </div>
+            <div class="menu-item">
+                @Html.ActionLink("Клиент", "Index", "Client")
+            </div>
+            <div class="menu-item">
+                @Html.ActionLink("Приход", "Index", "Invoice", new { type = "Income" }, null)
+            </div>
+            <div class="menu-item">
+                @Html.ActionLink("Расход", "Index", "Invoice", new { type = "Expenditure" }, null)
+            </div>
+            <div class="menu-item">
+                @Html.ActionLink("Прайс", "PriceList", "Product")
+            </div>
+            <div class="menu-item" style="float: right;">
+                @Html.ActionLink("Выход", "LogOff", "Account")
+            </div>
         </div>
-        <div class="menu-item">
-            @Html.ActionLink("Категория", "Index", "Category")
-        </div>
-        <div class="menu-item">
-            @Html.ActionLink("Клиент", "Index", "Client")
-        </div>
-        <div class="menu-item">
-            @Html.ActionLink("Приход", "Index", "Invoice", new { type = "Income" }, null)
-        </div>
-        <div class="menu-item">
-            @Html.ActionLink("Расход", "Index", "Invoice", new { type = "Expenditure" }, null)
-        </div>
-        <div class="menu-item" style="float: right;">
-            @Html.ActionLink("Прайс", "PriceList", "Product")
-        </div>
-    </div>
+    }
     <div style="clear:both;"></div>
     @RenderBody()
 </body>

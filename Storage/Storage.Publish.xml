@@ -1,56 +1,58 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <publishData>
-  <publishProfile publishUrl="D:\Artur\Storage\Web Site\Storage IIS Local" deleteExistingFiles="True" ftpAnonymousLogin="False" ftpPassiveMode="True" msdeploySite="" msdeploySiteID="" msdeployRemoteSitePhysicalPath="" msdeployAllowUntrustedCertificate="False" msdeploySkipExtraFilesOnServer="True" msdeployMarkAsApp="False" profileName="Storage IIS Local" publishMethod="FileSystem" replaceMatchingFiles="False" userName="" savePWD="False" userPWD="" SelectedForPublish="False">
-    <file relUrl="bin/Storage.dll" publishTime="01/15/2012 23:27:55" />
+  <publishProfile publishUrl="D:\Artur\Storage\Web Site\Storage IIS Local" deleteExistingFiles="True" ftpAnonymousLogin="False" ftpPassiveMode="True" msdeploySite="" msdeploySiteID="" msdeployRemoteSitePhysicalPath="" msdeployAllowUntrustedCertificate="False" msdeploySkipExtraFilesOnServer="True" msdeployMarkAsApp="False" profileName="Storage IIS Local" publishMethod="FileSystem" replaceMatchingFiles="False" userName="" savePWD="False" userPWD="" SelectedForPublish="True">
+    <file relUrl="bin/Storage.dll" publishTime="01/21/2012 18:01:52" />
     <file relUrl="Views/Client/Details.cshtml" publishTime="12/11/2011 18:59:09" />
     <file relUrl="Views/Category/Index.cshtml" publishTime="01/13/2012 00:24:25" />
     <file relUrl="Global.asax" publishTime="12/11/2011 02:07:31" />
     <file relUrl="bin/EntityFramework.xml" publishTime="12/11/2011 02:07:56" />
     <file relUrl="Views/_ViewStart.cshtml" publishTime="12/11/2011 02:07:31" />
     <file relUrl="Views/Category/Create.cshtml" publishTime="01/11/2012 22:32:00" />
+    <file relUrl="Views/Client/Create.cshtml" publishTime="01/11/2012 22:32:08" />
     <file relUrl="Views/Client/Delete.cshtml" publishTime="12/11/2011 18:59:06" />
     <file relUrl="Views/Client/Edit.cshtml" publishTime="01/11/2012 22:32:13" />
     <file relUrl="Views/Product/Details.cshtml" publishTime="01/15/2012 23:24:36" />
     <file relUrl="Views/Product/Index.cshtml" publishTime="01/15/2012 22:47:21" />
     <file relUrl="Views/Shared/Error.cshtml" publishTime="12/11/2011 02:07:31" />
     <file relUrl="Views/Product/Edit.cshtml" publishTime="01/12/2012 00:54:23" />
-    <file relUrl="Views/Invoice/Create.cshtml" publishTime="01/14/2012 16:53:52" />
-    <file relUrl="App_Data/StorageDB.sdf" publishTime="01/15/2012 23:26:00" />
+    <file relUrl="Views/Invoice/Create.cshtml" publishTime="01/21/2012 16:30:08" />
+    <file relUrl="App_Data/StorageDB.sdf" publishTime="01/21/2012 18:01:52" />
     <file relUrl="Views/Category/Delete.cshtml" publishTime="01/07/2012 02:03:55" />
     <file relUrl="Scripts/jquery.validate.js" publishTime="01/15/2012 21:55:59" />
     <file relUrl="Views/Product/Create.cshtml" publishTime="01/11/2012 22:31:37" />
     <file relUrl="packages.config" publishTime="12/20/2011 21:45:33" />
-    <file relUrl="Scripts/jquery.validate.unobtrusive.js" publishTime="01/15/2012 21:52:05" />
     <file relUrl="Views/Category/Details.cshtml" publishTime="01/07/2012 02:03:39" />
     <file relUrl="Views/Home/Index.cshtml" publishTime="01/12/2012 21:52:27" />
     <file relUrl="Scripts/jquery-1.5.1.min.js" publishTime="12/11/2011 02:07:45" />
+    <file relUrl="Views/Product/PriceList.cshtml" publishTime="01/14/2012 03:11:56" />
     <file relUrl="Scripts/jquery.formatCurrency.all.js" publishTime="01/15/2012 21:55:54" />
-    <file relUrl="Scripts/CreateInvoice.js" publishTime="01/13/2012 00:37:23" />
+    <file relUrl="Scripts/jquery.validate.unobtrusive.js" publishTime="01/15/2012 21:52:05" />
     <file relUrl="Views/Client/Index.cshtml" publishTime="01/14/2012 16:42:29" />
     <file relUrl="Views/Shared/_Layout.cshtml" publishTime="01/12/2012 21:51:40" />
     <file relUrl="Scripts/jquery.formatCurrency-1.4.0.js" publishTime="01/15/2012 21:55:48" />
     <file relUrl="Views/Category/Edit.cshtml" publishTime="01/11/2012 22:32:04" />
-    <file relUrl="Content/Site.css" publishTime="01/13/2012 00:31:32" />
-    <file relUrl="Views/Invoice/Index.cshtml" publishTime="01/13/2012 00:24:48" />
+    <file relUrl="Views/Invoice/Index.cshtml" publishTime="01/21/2012 00:11:56" />
     <file relUrl="Views/Product/Delete.cshtml" publishTime="01/08/2012 19:41:45" />
-    <file relUrl="Views/Invoice/Print.cshtml" publishTime="01/15/2012 23:16:24" />
-    <file relUrl="Web.config" publishTime="01/12/2012 00:37:15" />
-    <file relUrl="Views/Product/PriceList.cshtml" publishTime="01/14/2012 03:11:56" />
-    <file relUrl="Views/Client/Create.cshtml" publishTime="01/11/2012 22:32:08" />
+    <file relUrl="Views/Invoice/Print.cshtml" publishTime="01/16/2012 22:53:30" />
+    <file relUrl="Web.config" publishTime="01/21/2012 00:07:40" />
+    <file relUrl="Scripts/CreateInvoice.js" publishTime="01/21/2012 17:59:28" />
+    <file relUrl="Content/Site.css" publishTime="01/13/2012 00:31:32" />
     <file relUrl="bin/EntityFramework.dll" publishTime="12/11/2011 02:07:56" />
-    <file relUrl="bin/Storage.pdb" publishTime="01/15/2012 23:27:55" />
-    <file relUrl="Content/Print.css" publishTime="01/14/2012 03:12:04" />
+    <file relUrl="bin/Storage.pdb" publishTime="01/21/2012 18:01:52" />
+    <file relUrl="Content/Print.css" publishTime="01/16/2012 22:58:21" />
+    <file relUrl="Views/Invoice/Edit.cshtml" publishTime="01/21/2012 17:52:22" />
     <file relUrl="Scripts/Site.js" publishTime="01/11/2012 23:46:54" />
-    <file relUrl="Views/Web.config" publishTime="12/11/2011 02:07:31" />
+    <file relUrl="Views/Web.config" publishTime="12/24/2011 15:50:13" />
   </publishProfile>
-  <publishProfile publishUrl="D:\Artur\Storage\Web Site\Storage IIS Express" deleteExistingFiles="True" ftpAnonymousLogin="False" ftpPassiveMode="True" msdeploySite="" msdeploySiteID="" msdeployRemoteSitePhysicalPath="" msdeployAllowUntrustedCertificate="False" msdeploySkipExtraFilesOnServer="True" msdeployMarkAsApp="False" profileName="Storage IIS Express" publishMethod="FileSystem" replaceMatchingFiles="False" userName="" savePWD="False" userPWD="" SelectedForPublish="True">
+  <publishProfile publishUrl="D:\Artur\Storage\Web Site\Storage IIS Express" deleteExistingFiles="True" ftpAnonymousLogin="False" ftpPassiveMode="True" msdeploySite="" msdeploySiteID="" msdeployRemoteSitePhysicalPath="" msdeployAllowUntrustedCertificate="False" msdeploySkipExtraFilesOnServer="True" msdeployMarkAsApp="False" profileName="Storage IIS Express" publishMethod="FileSystem" replaceMatchingFiles="False" userName="" savePWD="False" userPWD="" SelectedForPublish="False">
     <file relUrl="bin/Storage.dll" publishTime="01/16/2012 22:51:57" />
     <file relUrl="Views/Client/Details.cshtml" publishTime="12/11/2011 18:59:09" />
-    <file relUrl="Scripts/jquery.validate.unobtrusive.js" publishTime="01/15/2012 21:52:05" />
+    <file relUrl="Views/Category/Index.cshtml" publishTime="01/13/2012 00:24:25" />
     <file relUrl="Global.asax" publishTime="12/11/2011 02:07:31" />
     <file relUrl="bin/EntityFramework.xml" publishTime="12/11/2011 02:07:56" />
     <file relUrl="Views/_ViewStart.cshtml" publishTime="12/11/2011 02:07:31" />
     <file relUrl="Views/Category/Create.cshtml" publishTime="01/11/2012 22:32:00" />
+    <file relUrl="Views/Client/Create.cshtml" publishTime="01/11/2012 22:32:08" />
     <file relUrl="Views/Client/Delete.cshtml" publishTime="12/11/2011 18:59:06" />
     <file relUrl="Views/Client/Edit.cshtml" publishTime="01/11/2012 22:32:13" />
     <file relUrl="Views/Product/Details.cshtml" publishTime="01/15/2012 23:24:36" />
@@ -66,20 +68,19 @@
     <file relUrl="Views/Category/Details.cshtml" publishTime="01/07/2012 02:03:39" />
     <file relUrl="Views/Home/Index.cshtml" publishTime="01/12/2012 21:52:27" />
     <file relUrl="Scripts/jquery-1.5.1.min.js" publishTime="12/11/2011 02:07:45" />
+    <file relUrl="Views/Product/PriceList.cshtml" publishTime="01/14/2012 03:11:56" />
     <file relUrl="Scripts/jquery.formatCurrency.all.js" publishTime="01/15/2012 21:55:54" />
-    <file relUrl="Scripts/CreateInvoice.js" publishTime="01/13/2012 00:37:23" />
+    <file relUrl="Scripts/jquery.validate.unobtrusive.js" publishTime="01/15/2012 21:52:05" />
     <file relUrl="Views/Client/Index.cshtml" publishTime="01/14/2012 16:42:29" />
     <file relUrl="Views/Shared/_Layout.cshtml" publishTime="01/12/2012 21:51:40" />
     <file relUrl="Scripts/jquery.formatCurrency-1.4.0.js" publishTime="01/15/2012 21:55:48" />
     <file relUrl="Views/Category/Edit.cshtml" publishTime="01/11/2012 22:32:04" />
-    <file relUrl="Content/Site.css" publishTime="01/13/2012 00:31:32" />
     <file relUrl="Views/Invoice/Index.cshtml" publishTime="01/13/2012 00:24:48" />
-    <file relUrl="Views/Category/Index.cshtml" publishTime="01/13/2012 00:24:25" />
     <file relUrl="Views/Product/Delete.cshtml" publishTime="01/08/2012 19:41:45" />
     <file relUrl="Views/Invoice/Print.cshtml" publishTime="01/16/2012 22:53:30" />
     <file relUrl="Web.config" publishTime="01/12/2012 00:37:15" />
-    <file relUrl="Views/Product/PriceList.cshtml" publishTime="01/14/2012 03:11:56" />
-    <file relUrl="Views/Client/Create.cshtml" publishTime="01/11/2012 22:32:08" />
+    <file relUrl="Scripts/CreateInvoice.js" publishTime="01/13/2012 00:37:23" />
+    <file relUrl="Content/Site.css" publishTime="01/13/2012 00:31:32" />
     <file relUrl="bin/EntityFramework.dll" publishTime="12/11/2011 02:07:56" />
     <file relUrl="bin/Storage.pdb" publishTime="01/16/2012 22:51:57" />
     <file relUrl="Content/Print.css" publishTime="01/16/2012 22:58:21" />

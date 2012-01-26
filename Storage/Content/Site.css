@@ -103,3 +103,18 @@ textarea
     background-color: black;
     height: 2px;
 }
+
+.well
+{       
+    position:absolute;      
+    width:230px;    
+    height:200px;
+    top: 50%;
+    left: 50%;
+    margin-top:-100px; /* negative number 1/2 height */
+    margin-left:-100px; /* negative number 1/2 width */
+}
+
+.loginInput {
+    width: 170px;
+}

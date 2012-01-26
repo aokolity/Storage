@@ -1,0 +1,42 @@
+﻿@model Storage.Models.LogOnModel
+
+@{
+    ViewBag.Title = "LogOn";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="well">
+    @using (Html.BeginForm())
+    {
+        <fieldset>
+            <legend>Вход</legend>
+            <br/>
+            <div class="display-label">
+                <strong>@Html.LabelFor(model => model.UserName):</strong>
+            </div>
+            <div class="display-field">
+                @Html.TextBoxFor(model => model.UserName, new { @class = "loginInput" })
+                @Html.ValidationMessageFor(m => m.UserName, "*")
+            </div>
+            <br/>
+            <div class="display-label">
+                <strong>@Html.LabelFor(model => model.Password):</strong>
+            </div>
+            <div class="display-field">
+                @Html.PasswordFor(model => model.Password, new { @class = "loginInput" })
+                @Html.ValidationMessageFor(m => m.Password, "*")
+            </div>
+            <br/>
+            <div class="display-field">
+                @Html.CheckBoxFor(m => m.RememberMe)
+                <span style="vertical-align: top;">@Html.LabelFor(m => m.RememberMe)</span>
+            </div>
+        </fieldset>
+        <p align="center">
+            <input type="submit" value="Войти" />
+        </p>
+        <div>
+            @Html.ValidationMessage("loginFailed")
+        </div>
+    }
+</div>
