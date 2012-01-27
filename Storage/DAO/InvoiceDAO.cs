@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Storage.Helpers;
 using Storage.Models;
 using Storage.ORM;
 
@@ -12,13 +13,13 @@ namespace Storage.DAO
         {
             var storageDbEntities = new StorageDBEntities();
 
-            List<InvoiceModel> list = (from im in storageDbEntities.Invoices
-                                       where im.Type == type
+            List<InvoiceModel> list = (from inv in storageDbEntities.Invoices
+                                       where inv.Type == type && inv.UserID == UserHelper.UserID
                                        select new InvoiceModel
                                                   {
-                                                      ID = im.ID,
-                                                      Number = im.Number,
-                                                      Date = im.Date
+                                                      ID = inv.ID,
+                                                      Number = inv.Number,
+                                                      Date = inv.Date
                                                   }
                                       ).ToList();
 
@@ -29,9 +30,9 @@ namespace Storage.DAO
         {
             var storageDbEntities = new StorageDBEntities();
 
-            var currentNumber = (from i in storageDbEntities.Invoices
-                                 where i.Type == type
-                                 select i.Number).DefaultIfEmpty().Max();
+            var currentNumber = (from inv in storageDbEntities.Invoices
+                                 where inv.Type == type && inv.UserID == UserHelper.UserID
+                                 select inv.Number).DefaultIfEmpty().Max();
 
             return currentNumber + 1;
         }
@@ -40,7 +41,7 @@ namespace Storage.DAO
         {
             var storageDbEntities = new StorageDBEntities();
 
-            Invoice invoice = storageDbEntities.Invoices.Where(inv => inv.ID == id).FirstOrDefault();
+            Invoice invoice = storageDbEntities.Invoices.Where(inv => inv.ID == id && inv.UserID == UserHelper.UserID).FirstOrDefault();
 
             if (invoice != null)
             {
@@ -113,7 +114,8 @@ namespace Storage.DAO
                                       Date = invoiceModel.Date,
                                       Type = invoiceModel.Type,
                                       Number = invoiceModel.Number,
-                                      PriceType = invoiceModel.PriceType
+                                      PriceType = invoiceModel.PriceType,
+                                      UserID = UserHelper.UserID
                                   };
 
             foreach (ProductsInInvoiceModel productsInInvoiceModel in invoiceModel.Products.Where(p => p.ProductID > 0).ToList())
@@ -137,7 +139,7 @@ namespace Storage.DAO
         {
             var storageDbEntities = new StorageDBEntities();
 
-            Invoice invoice = storageDbEntities.Invoices.Where(p => p.ID == id).FirstOrDefault();
+            Invoice invoice = storageDbEntities.Invoices.Where(inv => inv.ID == id && inv.UserID == UserHelper.UserID).FirstOrDefault();
 
             if (invoice != null)
             {
@@ -156,7 +158,7 @@ namespace Storage.DAO
         {
             var storageDbEntities = new StorageDBEntities();
 
-            Invoice invoice = storageDbEntities.Invoices.Where(i => i.ID == invoiceModel.ID).FirstOrDefault();
+            Invoice invoice = storageDbEntities.Invoices.Where(inv => inv.ID == invoiceModel.ID && inv.UserID == UserHelper.UserID).FirstOrDefault();
 
             if (invoice != null)
             {

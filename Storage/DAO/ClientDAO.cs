@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Storage.Helpers;
 using Storage.Models;
 using Storage.ORM;
 
@@ -12,7 +13,7 @@ namespace Storage.DAO
             var storageDbEntities = new StorageDBEntities();
 
             ClientModel client = (from c in storageDbEntities.Clients
-                                    where c.ID == id
+                                    where c.ID == id && c.UserID == UserHelper.UserID
                                     select new ClientModel
                                                {
                                                    ID = c.ID,
@@ -28,13 +29,14 @@ namespace Storage.DAO
             var storageDbEntities = new StorageDBEntities();
 
             List<ClientModel> list = (from c in storageDbEntities.Clients
-                                       select new ClientModel
-                                       {
-                                           ID = c.ID,
-                                           Name = c.Name,
-                                           Address = c.Address,
-                                           Telephone = c.Telephone
-                                       }).ToList();
+                                      where c.UserID == UserHelper.UserID
+                                      select new ClientModel
+                                      {
+                                          ID = c.ID,
+                                          Name = c.Name,
+                                          Address = c.Address,
+                                          Telephone = c.Telephone
+                                      }).ToList();
 
             return list;
         }
@@ -47,7 +49,8 @@ namespace Storage.DAO
                                      {
                                          Name = clientModel.Name,
                                          Address = clientModel.Address,
-                                         Telephone = clientModel.Telephone
+                                         Telephone = clientModel.Telephone,
+                                         UserID = UserHelper.UserID
                                      };
 
             storageDbEntities.Clients.AddObject(newClient);
@@ -58,7 +61,7 @@ namespace Storage.DAO
         {
             var storageDbEntities = new StorageDBEntities();
 
-            Client client = storageDbEntities.Clients.Where(p => p.ID == id).FirstOrDefault();
+            Client client = storageDbEntities.Clients.Where(c => c.ID == id && c.UserID == UserHelper.UserID).FirstOrDefault();
 
             if (client != null)
             {
@@ -74,7 +77,7 @@ namespace Storage.DAO
         {
             var storageDbEntities = new StorageDBEntities();
 
-            Client client = storageDbEntities.Clients.Where(p => p.ID == id).FirstOrDefault();
+            Client client = storageDbEntities.Clients.Where(c => c.ID == id && c.UserID == UserHelper.UserID).FirstOrDefault();
 
             storageDbEntities.Clients.DeleteObject(client);
 

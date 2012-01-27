@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Storage.Helpers;
 using Storage.Models;
 using Storage.ORM;
 
@@ -12,7 +13,7 @@ namespace Storage.DAO
         {
             var storageDbEntities = new StorageDBEntities();
 
-            return storageDbEntities.Products.Where(p => p.Code == code).FirstOrDefault() == null;
+            return storageDbEntities.Products.Where(p => p.Code == code && p.UserID == UserHelper.UserID).FirstOrDefault() == null;
         }
 
         public static ProductModel GetProduct(int id)
@@ -20,7 +21,7 @@ namespace Storage.DAO
             var storageDbEntities = new StorageDBEntities();
 
             ProductModel product = (from p in storageDbEntities.Products
-                                    where p.ID == id
+                                    where p.ID == id && p.UserID == UserHelper.UserID
                                     select new ProductModel
                                                {
                                                    ID = p.ID,
@@ -44,6 +45,7 @@ namespace Storage.DAO
             var storageDbEntities = new StorageDBEntities();
 
             List<ProductModel> list = (from p in storageDbEntities.Products
+                                       where p.UserID == UserHelper.UserID
                                        select new ProductModel
                                        {
                                            ID = p.ID,
@@ -91,21 +93,21 @@ namespace Storage.DAO
                 products = products.Where(p => p.Name.Contains(name));
             }
 
-            List<ProductModel> list = products.Select(p => new ProductModel
-                                                               {
-                                                                   ID = p.ID,
-                                                                   Code = p.Code,
-                                                                   Name = p.Name,
-                                                                   WholesalePrice = p.WholesalePrice,
-                                                                   ShallowWholesalePrice = p.ShallowWholesalePrice,
-                                                                   RetailPrice = p.RetailPrice,
-                                                                   Unit = p.Unit,
-                                                                   Category = new CategoryModel
-                                                                                  {
-                                                                                      ID = (int?) p.Category.ID,
-                                                                                      Name = p.Category.Name
-                                                                                  }
-                                                               }).ToList();
+            List<ProductModel> list = products.Where(p => p.UserID == UserHelper.UserID).Select(p => new ProductModel
+                                                                                               {
+                                                                                                   ID = p.ID,
+                                                                                                   Code = p.Code,
+                                                                                                   Name = p.Name,
+                                                                                                   WholesalePrice = p.WholesalePrice,
+                                                                                                   ShallowWholesalePrice = p.ShallowWholesalePrice,
+                                                                                                   RetailPrice = p.RetailPrice,
+                                                                                                   Unit = p.Unit,
+                                                                                                   Category = new CategoryModel
+                                                                                                                  {
+                                                                                                                      ID = (int?) p.Category.ID,
+                                                                                                                      Name = p.Category.Name
+                                                                                                                  }
+                                                                                               }).ToList();
                 
             list = list.OrderBy(l => Convert.ToInt32(l.Code)).ToList();
 
@@ -124,7 +126,8 @@ namespace Storage.DAO
                                          WholesalePrice = productModel.WholesalePrice,
                                          ShallowWholesalePrice = productModel.ShallowWholesalePrice,
                                          RetailPrice = productModel.RetailPrice,
-                                         CategoryID = productModel.Category.ID
+                                         CategoryID = productModel.Category.ID,
+                                         UserID = UserHelper.UserID
                                      };
 
             storageDbEntities.Products.AddObject(newProduct);
@@ -135,7 +138,7 @@ namespace Storage.DAO
         {
             var storageDbEntities = new StorageDBEntities();
 
-            Product product = storageDbEntities.Products.Where(p => p.ID == id).FirstOrDefault();
+            Product product = storageDbEntities.Products.Where(p => p.ID == id && p.UserID == UserHelper.UserID).FirstOrDefault();
 
             if (product != null)
             {
@@ -155,7 +158,7 @@ namespace Storage.DAO
         {
             var storageDbEntities = new StorageDBEntities();
 
-            Product product = storageDbEntities.Products.Where(p => p.ID == id).FirstOrDefault();
+            Product product = storageDbEntities.Products.Where(p => p.ID == id && p.UserID == UserHelper.UserID).FirstOrDefault();
 
             storageDbEntities.Products.DeleteObject(product);
 
@@ -167,7 +170,7 @@ namespace Storage.DAO
             var storageDbEntities = new StorageDBEntities();
 
             ProductModel product = (from p in storageDbEntities.Products
-                                    where p.Code == code
+                                    where p.Code == code && p.UserID == UserHelper.UserID
                                     select new ProductModel
                                     {
                                         ID = p.ID,

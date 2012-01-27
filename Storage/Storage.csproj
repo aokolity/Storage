@@ -74,6 +74,7 @@
     <Compile Include="Controllers\InvoiceController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\ValidationController.cs" />
+    <Compile Include="Helpers\UserHelper.cs" />
     <Compile Include="DAO\ClientDAO.cs" />
     <Compile Include="DAO\CategoryDAO.cs" />
     <Compile Include="DAO\InvoiceDAO.cs" />

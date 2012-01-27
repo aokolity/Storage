@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Storage.Helpers;
 using Storage.Models;
 using Storage.ORM;
 
@@ -12,7 +13,7 @@ namespace Storage.DAO
             var storageDbEntities = new StorageDBEntities();
 
             CategoryModel category = (from c in storageDbEntities.Categories
-                                      where c.ID == id
+                                      where c.ID == id && c.UserID == UserHelper.UserID
                                       select new CategoryModel
                                                {
                                                    ID = c.ID,
@@ -26,6 +27,7 @@ namespace Storage.DAO
             var storageDbEntities = new StorageDBEntities();
 
             List<CategoryModel> list = (from c in storageDbEntities.Categories
+                                        where c.UserID == UserHelper.UserID
                                         select new CategoryModel
                                        {
                                            ID = c.ID,
@@ -41,7 +43,8 @@ namespace Storage.DAO
 
             Category newCategory = new Category
                                      {
-                                         Name = categoryModel.Name
+                                         Name = categoryModel.Name,
+                                         UserID = UserHelper.UserID
                                      };
 
             storageDbEntities.Categories.AddObject(newCategory);
@@ -52,7 +55,7 @@ namespace Storage.DAO
         {
             var storageDbEntities = new StorageDBEntities();
 
-            Category category = storageDbEntities.Categories.Where(p => p.ID == id).FirstOrDefault();
+            Category category = storageDbEntities.Categories.Where(c => c.ID == id && c.UserID == UserHelper.UserID).FirstOrDefault();
 
             if (category != null)
             {
@@ -66,7 +69,7 @@ namespace Storage.DAO
         {
             var storageDbEntities = new StorageDBEntities();
 
-            Category category = storageDbEntities.Categories.Where(p => p.ID == id).FirstOrDefault();
+            Category category = storageDbEntities.Categories.Where(p => p.ID == id && p.UserID == UserHelper.UserID).FirstOrDefault();
 
             storageDbEntities.Categories.DeleteObject(category);
 

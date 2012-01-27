@@ -11,6 +11,7 @@
           <EntitySet Name="Invoice" EntityType="StorageDBModel.Store.Invoice" store:Type="Tables" />
           <EntitySet Name="Product" EntityType="StorageDBModel.Store.Product" store:Type="Tables" />
           <EntitySet Name="ProductsInInvoice" EntityType="StorageDBModel.Store.ProductsInInvoice" store:Type="Tables" />
+          <EntitySet Name="User" EntityType="StorageDBModel.Store.User" store:Type="Tables" />
           <AssociationSet Name="Category -&gt; Product" Association="StorageDBModel.Store.Category -&gt; Product">
             <End Role="Category" EntitySet="Category" />
             <End Role="Product" EntitySet="Product" />
@@ -31,6 +32,22 @@
             <End Role="Client" EntitySet="Client" />
             <End Role="Invoice" EntitySet="Invoice" />
           </AssociationSet>
+          <AssociationSet Name="User -&gt; Category" Association="StorageDBModel.Store.User -&gt; Category">
+            <End Role="User" EntitySet="User" />
+            <End Role="Category" EntitySet="Category" />
+          </AssociationSet>
+          <AssociationSet Name="User -&gt; Client" Association="StorageDBModel.Store.User -&gt; Client">
+            <End Role="User" EntitySet="User" />
+            <End Role="Client" EntitySet="Client" />
+          </AssociationSet>
+          <AssociationSet Name="User -&gt; Invoice" Association="StorageDBModel.Store.User -&gt; Invoice">
+            <End Role="User" EntitySet="User" />
+            <End Role="Invoice" EntitySet="Invoice" />
+          </AssociationSet>
+          <AssociationSet Name="User -&gt; Product" Association="StorageDBModel.Store.User -&gt; Product">
+            <End Role="User" EntitySet="User" />
+            <End Role="Product" EntitySet="Product" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Category">
           <Key>
@@ -38,6 +55,7 @@
           </Key>
           <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="User" Type="int" />
         </EntityType>
         <EntityType Name="Client">
           <Key>
@@ -47,6 +65,7 @@
           <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="100" />
           <Property Name="Telephone" Type="nvarchar" Nullable="false" MaxLength="50" />
           <Property Name="Address" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="User" Type="int" />
         </EntityType>
         <EntityType Name="Invoice">
           <Key>
@@ -59,6 +78,7 @@
           <Property Name="Recipient" Type="int" Nullable="false" />
           <Property Name="Number" Type="int" Nullable="false" />
           <Property Name="PriceType" Type="nvarchar" MaxLength="30" />
+          <Property Name="User" Type="int" />
         </EntityType>
         <EntityType Name="Product">
           <Key>
@@ -72,6 +92,7 @@
           <Property Name="RetailPrice" Type="money" Nullable="false" />
           <Property Name="Code" Type="nvarchar" Nullable="false" MaxLength="20" />
           <Property Name="Category" Type="int" />
+          <Property Name="User" Type="int" />
         </EntityType>
         <EntityType Name="ProductsInInvoice">
           <Key>
@@ -82,6 +103,16 @@
           <Property Name="Invoice" Type="int" Nullable="false" />
           <Property Name="Quantity" Type="float" Nullable="false" />
           <Property Name="Price" Type="money" Nullable="false" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Username" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="Password" Type="nvarchar" Nullable="false" MaxLength="20" />
+          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="Surname" Type="nvarchar" Nullable="false" MaxLength="50" />
         </EntityType>
         <Association Name="Category -&gt; Product">
           <End Role="Category" Type="StorageDBModel.Store.Category" Multiplicity="0..1" />
@@ -143,6 +174,54 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="User -&gt; Category">
+          <End Role="User" Type="StorageDBModel.Store.User" Multiplicity="0..1" />
+          <End Role="Category" Type="StorageDBModel.Store.Category" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Category">
+              <PropertyRef Name="User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="User -&gt; Client">
+          <End Role="User" Type="StorageDBModel.Store.User" Multiplicity="0..1" />
+          <End Role="Client" Type="StorageDBModel.Store.Client" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Client">
+              <PropertyRef Name="User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="User -&gt; Invoice">
+          <End Role="User" Type="StorageDBModel.Store.User" Multiplicity="0..1" />
+          <End Role="Invoice" Type="StorageDBModel.Store.Invoice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Invoice">
+              <PropertyRef Name="User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="User -&gt; Product">
+          <End Role="User" Type="StorageDBModel.Store.User" Multiplicity="0..1" />
+          <End Role="Product" Type="StorageDBModel.Store.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
@@ -173,6 +252,23 @@
             <End Role="Category" EntitySet="Categories" />
             <End Role="Product" EntitySet="Products" />
           </AssociationSet>
+          <EntitySet Name="Users" EntityType="StorageDBModel.User" />
+          <AssociationSet Name="User____Category" Association="StorageDBModel.User____Category">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Category" EntitySet="Categories" />
+          </AssociationSet>
+          <AssociationSet Name="User____Client" Association="StorageDBModel.User____Client">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Client" EntitySet="Clients" />
+          </AssociationSet>
+          <AssociationSet Name="User____Invoice" Association="StorageDBModel.User____Invoice">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Invoice" EntitySet="Invoices" />
+          </AssociationSet>
+          <AssociationSet Name="User____Product" Association="StorageDBModel.User____Product">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Product" EntitySet="Products" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Client">
           <Key>
@@ -184,6 +280,8 @@
           <Property Name="Address" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
           <NavigationProperty Name="RecipientInvoices" Relationship="StorageDBModel.Recipient____Invoice" FromRole="Client" ToRole="Invoice" />
           <NavigationProperty Name="SupplierInvoices" Relationship="StorageDBModel.Supplier____Invoice" FromRole="Client" ToRole="Invoice" />
+          <Property Type="Int32" Name="UserID" />
+          <NavigationProperty Name="User" Relationship="StorageDBModel.User____Client" FromRole="Client" ToRole="User" />
         </EntityType>
         <EntityType Name="Invoice">
           <Key>
@@ -199,6 +297,8 @@
           <NavigationProperty Name="ProductsInInvoices" Relationship="StorageDBModel.Invoice____ProductsInInvoice" FromRole="Invoice" ToRole="ProductsInInvoice" />
           <Property Type="Int32" Name="Number" Nullable="false" />
           <Property Type="String" Name="PriceType" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="UserID" />
+          <NavigationProperty Name="User" Relationship="StorageDBModel.User____Invoice" FromRole="Invoice" ToRole="User" />
         </EntityType>
         <EntityType Name="Product">
           <Key>
@@ -214,6 +314,8 @@
           <NavigationProperty Name="ProductsInInvoices" Relationship="StorageDBModel.Product____ProductsInInvoice" FromRole="Product" ToRole="ProductsInInvoice" />
           <Property Type="Int32" Name="CategoryID" />
           <NavigationProperty Name="Category" Relationship="StorageDBModel.Category____Product" FromRole="Product" ToRole="Category" />
+          <Property Type="Int32" Name="UserID" />
+          <NavigationProperty Name="User" Relationship="StorageDBModel.User____Product" FromRole="Product" ToRole="User" />
         </EntityType>
         <EntityType Name="ProductsInInvoice">
           <Key>
@@ -282,6 +384,8 @@
           <Property Type="Int32" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Type="String" Name="Name" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Products" Relationship="StorageDBModel.Category____Product" FromRole="Category" ToRole="Product" />
+          <Property Type="Int32" Name="UserID" />
+          <NavigationProperty Name="User" Relationship="StorageDBModel.User____Category" FromRole="Category" ToRole="User" />
         </EntityType>
         <Association Name="Category____Product">
           <End Type="StorageDBModel.Category" Role="Category" Multiplicity="0..1" />
@@ -295,6 +399,68 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Int32" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Username" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Password" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Surname" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Categories" Relationship="StorageDBModel.User____Category" FromRole="User" ToRole="Category" />
+          <NavigationProperty Name="Clients" Relationship="StorageDBModel.User____Client" FromRole="User" ToRole="Client" />
+          <NavigationProperty Name="Invoices" Relationship="StorageDBModel.User____Invoice" FromRole="User" ToRole="Invoice" />
+          <NavigationProperty Name="Products" Relationship="StorageDBModel.User____Product" FromRole="User" ToRole="Product" />
+        </EntityType>
+        <Association Name="User____Category">
+          <End Type="StorageDBModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="StorageDBModel.Category" Role="Category" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Category">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="User____Client">
+          <End Type="StorageDBModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="StorageDBModel.Client" Role="Client" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Client">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="User____Invoice">
+          <End Type="StorageDBModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="StorageDBModel.Invoice" Role="Invoice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Invoice">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="User____Product">
+          <End Type="StorageDBModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="StorageDBModel.Product" Role="Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -302,13 +468,15 @@
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="StorageDBModelStoreContainer" CdmEntityContainer="StorageDBEntities">
           <EntitySetMapping Name="Clients"><EntityTypeMapping TypeName="StorageDBModel.Client"><MappingFragment StoreEntitySet="Client">
-            <ScalarProperty Name="ID" ColumnName="ID" />
+            <ScalarProperty Name="UserID" ColumnName="User" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
             <ScalarProperty Name="Name" ColumnName="Name" />
             <ScalarProperty Name="Telephone" ColumnName="Telephone" />
             <ScalarProperty Name="Address" ColumnName="Address" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
           <EntitySetMapping Name="Invoices"><EntityTypeMapping TypeName="StorageDBModel.Invoice"><MappingFragment StoreEntitySet="Invoice">
-            <ScalarProperty Name="PriceType" ColumnName="PriceType" />
+            <ScalarProperty Name="UserID" ColumnName="User" />
+                <ScalarProperty Name="PriceType" ColumnName="PriceType" />
                 <ScalarProperty Name="Number" ColumnName="Number" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
             <ScalarProperty Name="Date" ColumnName="Date" />
@@ -317,7 +485,8 @@
             <ScalarProperty Name="RecipientID" ColumnName="Recipient" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
           <EntitySetMapping Name="Products"><EntityTypeMapping TypeName="StorageDBModel.Product"><MappingFragment StoreEntitySet="Product">
-            <ScalarProperty Name="CategoryID" ColumnName="Category" />
+            <ScalarProperty Name="UserID" ColumnName="User" />
+                <ScalarProperty Name="CategoryID" ColumnName="Category" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
             <ScalarProperty Name="Name" ColumnName="Name" />
             <ScalarProperty Name="Unit" ColumnName="Unit" />
@@ -336,7 +505,19 @@
           <EntitySetMapping Name="Categories">
             <EntityTypeMapping TypeName="StorageDBModel.Category">
               <MappingFragment StoreEntitySet="Category">
+                <ScalarProperty Name="UserID" ColumnName="User" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="StorageDBModel.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -362,31 +543,49 @@
     <!-- Diagram content (shape and connector positions) -->
     <Diagrams>
       <Diagram Name="StorageDB">
-        <EntityTypeShape EntityType="StorageDBModel.Client" Width="1.5" PointX="0.75" PointY="1.25" Height="1.9210009765625005" IsExpanded="true" />
-        <EntityTypeShape EntityType="StorageDBModel.Invoice" Width="1.5" PointX="3" PointY="1" Height="2.4140429687499996" IsExpanded="true" />
-        <EntityTypeShape EntityType="StorageDBModel.Product" Width="1.5" PointX="3" PointY="4.875" Height="2.5783902994791656" IsExpanded="true" />
-        <EntityTypeShape EntityType="StorageDBModel.ProductsInInvoice" Width="1.5" PointX="5.25" PointY="1.125" Height="2.0853483072916656" IsExpanded="true" />
+        <EntityTypeShape EntityType="StorageDBModel.Client" Width="1.5" PointX="3" PointY="2" Height="2.2496956380208322" IsExpanded="true" />
+        <EntityTypeShape EntityType="StorageDBModel.Invoice" Width="1.5" PointX="5.25" PointY="2.375" Height="2.9070849609374996" IsExpanded="true" />
+        <EntityTypeShape EntityType="StorageDBModel.Product" Width="1.5" PointX="5.25" PointY="6.625" Height="2.9070849609374996" IsExpanded="true" />
+        <EntityTypeShape EntityType="StorageDBModel.ProductsInInvoice" Width="1.5" PointX="7.5" PointY="4.875" Height="2.0853483072916656" IsExpanded="true" />
         <AssociationConnector Association="StorageDBModel.Recipient____Invoice" ManuallyRouted="false">
-          <ConnectorPoint PointX="2.25" PointY="2.2105004882812502" />
-          <ConnectorPoint PointX="3" PointY="2.2105004882812502" />
+          <ConnectorPoint PointX="4.5" PointY="3.3123478190104159" />
+          <ConnectorPoint PointX="5.25" PointY="3.3123478190104159" />
         </AssociationConnector>
         <AssociationConnector Association="StorageDBModel.Supplier____Invoice" ManuallyRouted="false">
-          <ConnectorPoint PointX="2.25" PointY="1.6677502441406251" />
-          <ConnectorPoint PointX="3" PointY="1.6677502441406251" />
+          <ConnectorPoint PointX="4.5" PointY="2.7811739095052079" />
+          <ConnectorPoint PointX="5.25" PointY="2.7811739095052079" />
         </AssociationConnector>
         <AssociationConnector Association="StorageDBModel.Invoice____ProductsInInvoice" ManuallyRouted="false">
-          <ConnectorPoint PointX="4.5" PointY="2.1676741536458328" />
-          <ConnectorPoint PointX="5.25" PointY="2.1676741536458328" />
+          <ConnectorPoint PointX="6.75" PointY="5.07854248046875" />
+          <ConnectorPoint PointX="7.5" PointY="5.07854248046875" />
         </AssociationConnector>
         <AssociationConnector Association="StorageDBModel.Product____ProductsInInvoice" ManuallyRouted="false">
-          <ConnectorPoint PointX="4.5" PointY="6.1641951497395837" />
-          <ConnectorPoint PointX="6" PointY="6.1641951497395837" />
-          <ConnectorPoint PointX="6" PointY="3.2103483072916656" />
+          <ConnectorPoint PointX="6.75" PointY="6.7926741536458328" />
+          <ConnectorPoint PointX="7.5" PointY="6.7926741536458328" />
         </AssociationConnector>
-        <EntityTypeShape EntityType="StorageDBModel.Category" Width="1.5" PointX="0.75" PointY="5.5" Height="1.4279589843749996" />
+        <EntityTypeShape EntityType="StorageDBModel.Category" Width="1.5" PointX="3" PointY="5" Height="1.7566536458333317" />
         <AssociationConnector Association="StorageDBModel.Category____Product" >
-          <ConnectorPoint PointX="2.25" PointY="6.2139794921875" />
-          <ConnectorPoint PointX="3" PointY="6.2139794921875" />
+          <ConnectorPoint PointX="3.75" PointY="6.7566536458333317" />
+          <ConnectorPoint PointX="3.75" PointY="8.1443698033854162" />
+          <ConnectorPoint PointX="5.25" PointY="8.1443698033854162" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="StorageDBModel.User" Width="1.5" PointX="0.75" PointY="3.25" Height="2.4140429687499996" />
+        <AssociationConnector Association="StorageDBModel.User____Category" >
+          <ConnectorPoint PointX="2.25" PointY="5.332021484375" />
+          <ConnectorPoint PointX="3" PointY="5.332021484375" />
+        </AssociationConnector>
+        <AssociationConnector Association="StorageDBModel.User____Client" >
+          <ConnectorPoint PointX="2.25" PointY="3.7498478190104159" />
+          <ConnectorPoint PointX="3" PointY="3.7498478190104159" />
+        </AssociationConnector>
+        <AssociationConnector Association="StorageDBModel.User____Invoice" >
+          <ConnectorPoint PointX="2.25" PointY="4.6248478190104159" />
+          <ConnectorPoint PointX="5.25" PointY="4.6248478190104159" />
+        </AssociationConnector>
+        <AssociationConnector Association="StorageDBModel.User____Product" >
+          <ConnectorPoint PointX="1.5" PointY="5.66404296875" />
+          <ConnectorPoint PointX="1.5" PointY="8.8694798821614587" />
+          <ConnectorPoint PointX="5.25" PointY="8.8694798821614587" />
         </AssociationConnector>
       </Diagram>
     </Diagrams>

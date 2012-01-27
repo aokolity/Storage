@@ -1,11 +1,12 @@
-﻿@{
+﻿@using Storage.DAO
+@{
     ViewBag.Title = "Домашняя страница";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h2>Домашняя страница</h2>
 <p>
-    Добро пожаловать в систему!
+    @UserDAO.GetUserFullName(User.Identity.Name), добро пожаловать в систему!
 </p>
 <br/>
 <p>
