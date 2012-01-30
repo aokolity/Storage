@@ -36,7 +36,7 @@ namespace Storage.Controllers
 					return RedirectToAction("Index", "Home");
 				}
 
-                ModelState.AddModelError("loginFailed", "Не правильный логин или пароль.");
+                ModelState.AddModelError("loginFailed", "Неправильный логин или пароль.");
 			}
 			
 			return View(model);

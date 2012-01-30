@@ -13,11 +13,11 @@ namespace Storage.Helpers
             }
         }
 
-        public static int UserID
+        public static int? UserID
         {
             get
             {
-                return UserDAO.GetUser(UserName).ID;
+                return UserDAO.GetUserID(UserName);
             }
         }
     }

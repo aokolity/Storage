@@ -73,6 +73,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InvoiceController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\ValidationController.cs" />
     <Compile Include="Helpers\UserHelper.cs" />
     <Compile Include="DAO\ClientDAO.cs" />
@@ -90,6 +91,7 @@
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\Invoice.cs" />
     <Compile Include="Models\Product.cs" />
+    <Compile Include="Models\User.cs" />
     <Compile Include="ModelValidators\ClientSideNumberValidator.cs" />
     <Compile Include="ORM\StorageDB.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -190,7 +192,9 @@
   <ItemGroup>
     <Content Include="Views\Invoice\Edit.cshtml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Views\User\Edit.cshtml" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Account\LogOn.cshtml" />
   </ItemGroup>
