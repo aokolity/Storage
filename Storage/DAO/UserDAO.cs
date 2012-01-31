@@ -1,4 +1,5 @@
-﻿using Storage.Models;
+﻿using System;
+using Storage.Models;
 using Storage.ORM;
 using System.Linq;
 
@@ -62,6 +63,20 @@ namespace Storage.DAO
             }
 
             storageDbEntities.SaveChanges();
+        }
+
+        public static bool IsActive(string userName)
+        {
+            var storageDbEntities = new StorageDBEntities();
+
+            User user = storageDbEntities.Users.Where(u => u.Username == userName).FirstOrDefault();
+
+            if(user != null)
+            {
+                return user.ExpirationDate >= DateTime.Now;
+            }
+
+            return false;
         }
     }
 }

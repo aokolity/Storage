@@ -105,34 +105,37 @@ namespace Storage.DAO
 
         public static void SaveInvoice(InvoiceModel invoiceModel)
         {
-            var storageDbEntities = new StorageDBEntities();
-
-            Invoice invoice = new Invoice
-                                  {
-                                      SupplierID = invoiceModel.Supplier.ID,
-                                      RecipientID = invoiceModel.Recipient.ID,
-                                      Date = invoiceModel.Date,
-                                      Type = invoiceModel.Type,
-                                      Number = invoiceModel.Number,
-                                      PriceType = invoiceModel.PriceType,
-                                      UserID = UserHelper.UserID
-                                  };
-
-            foreach (ProductsInInvoiceModel productsInInvoiceModel in invoiceModel.Products.Where(p => p.ProductID > 0).ToList())
+            if (UserHelper.UserID != null)
             {
-                ProductsInInvoice productsInInvoice = new ProductsInInvoice
-                                                          {
-                                                              Price = productsInInvoiceModel.Price,
-                                                              Quantity = productsInInvoiceModel.Quantity,
-                                                              ProductID = productsInInvoiceModel.ProductID
-                                                          };
+                var storageDbEntities = new StorageDBEntities();
 
-                invoice.ProductsInInvoices.Add(productsInInvoice);
+                Invoice invoice = new Invoice
+                                      {
+                                          SupplierID = invoiceModel.Supplier.ID,
+                                          RecipientID = invoiceModel.Recipient.ID,
+                                          Date = invoiceModel.Date,
+                                          Type = invoiceModel.Type,
+                                          Number = invoiceModel.Number,
+                                          PriceType = invoiceModel.PriceType,
+                                          UserID = UserHelper.UserID.Value
+                                      };
+
+                foreach (ProductsInInvoiceModel productsInInvoiceModel in invoiceModel.Products.Where(p => p.ProductID > 0).ToList())
+                {
+                    ProductsInInvoice productsInInvoice = new ProductsInInvoice
+                                                              {
+                                                                  Price = productsInInvoiceModel.Price,
+                                                                  Quantity = productsInInvoiceModel.Quantity,
+                                                                  ProductID = productsInInvoiceModel.ProductID
+                                                              };
+
+                    invoice.ProductsInInvoices.Add(productsInInvoice);
+                }
+
+                storageDbEntities.Invoices.AddObject(invoice);
+
+                storageDbEntities.SaveChanges();
             }
-
-            storageDbEntities.Invoices.AddObject(invoice);
-
-            storageDbEntities.SaveChanges();
         }
 
         public static void DeleteInvoice(int id)

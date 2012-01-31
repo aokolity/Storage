@@ -39,16 +39,20 @@ namespace Storage.DAO
 
         public static void CreateProduct(CategoryModel categoryModel)
         {
-            var storageDbEntities = new StorageDBEntities();
+            if (UserHelper.UserID != null)
+            {
+                var storageDbEntities = new StorageDBEntities();
 
-            Category newCategory = new Category
-                                     {
-                                         Name = categoryModel.Name,
-                                         UserID = UserHelper.UserID
-                                     };
+                Category newCategory = new Category
+                                           {
+                                               Name = categoryModel.Name,
+                                               UserID = UserHelper.UserID.Value
+                                           };
 
-            storageDbEntities.Categories.AddObject(newCategory);
-            storageDbEntities.SaveChanges();
+                storageDbEntities.Categories.AddObject(newCategory);
+
+                storageDbEntities.SaveChanges();
+            }
         }
 
         public static void UpdateProduct(int id, CategoryModel categoryModel)

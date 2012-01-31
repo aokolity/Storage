@@ -116,22 +116,26 @@ namespace Storage.DAO
 
         public static void CreateProduct(ProductModel productModel)
         {
-            var storageDbEntities = new StorageDBEntities();
+            if (UserHelper.UserID != null)
+            {
+                var storageDbEntities = new StorageDBEntities();
 
-            Product newProduct = new Product
-                                     {
-                                         Code = productModel.Code,
-                                         Name = productModel.Name,
-                                         Unit = productModel.Unit,
-                                         WholesalePrice = productModel.WholesalePrice,
-                                         ShallowWholesalePrice = productModel.ShallowWholesalePrice,
-                                         RetailPrice = productModel.RetailPrice,
-                                         CategoryID = productModel.Category.ID,
-                                         UserID = UserHelper.UserID
-                                     };
+                Product newProduct = new Product
+                                         {
+                                             Code = productModel.Code,
+                                             Name = productModel.Name,
+                                             Unit = productModel.Unit,
+                                             WholesalePrice = productModel.WholesalePrice,
+                                             ShallowWholesalePrice = productModel.ShallowWholesalePrice,
+                                             RetailPrice = productModel.RetailPrice,
+                                             CategoryID = productModel.Category.ID,
+                                             UserID = UserHelper.UserID.Value
+                                         };
 
-            storageDbEntities.Products.AddObject(newProduct);
-            storageDbEntities.SaveChanges();
+                storageDbEntities.Products.AddObject(newProduct);
+
+                storageDbEntities.SaveChanges();
+            }
         }
 
         public static void UpdateProduct(int id, ProductModel productModel)

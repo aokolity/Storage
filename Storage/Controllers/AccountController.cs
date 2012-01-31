@@ -26,14 +26,21 @@ namespace Storage.Controllers
 			{
                 if (UserDAO.ValidateUser(model.UserName, model.Password))
 				{
-                    FormsAuthentication.SetAuthCookie(model.UserName, model.RememberMe);
+                    if (UserDAO.IsActive(model.UserName))
+                    {
+                        FormsAuthentication.SetAuthCookie(model.UserName, model.RememberMe);
 
-					if (!String.IsNullOrEmpty(returnUrl))
-					{
-						return Redirect(returnUrl);
-					}
+                        if (!String.IsNullOrEmpty(returnUrl))
+                        {
+                            return Redirect(returnUrl);
+                        }
 
-					return RedirectToAction("Index", "Home");
+                        return RedirectToAction("Index", "Home");
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("loginFailed", "Продлите свою учетную запись.");
+                    }
 				}
 
                 ModelState.AddModelError("loginFailed", "Неправильный логин или пароль.");

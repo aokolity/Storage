@@ -21,12 +21,12 @@ using System.Runtime.Serialization;
 [assembly: EdmRelationshipAttribute("StorageDBModel", "Recipient____Invoice", "Client", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Storage.ORM.Client), "Invoice", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Storage.ORM.Invoice), true)]
 [assembly: EdmRelationshipAttribute("StorageDBModel", "Supplier____Invoice", "Client", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Storage.ORM.Client), "Invoice", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Storage.ORM.Invoice), true)]
 [assembly: EdmRelationshipAttribute("StorageDBModel", "Invoice____ProductsInInvoice", "Invoice", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Storage.ORM.Invoice), "ProductsInInvoice", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Storage.ORM.ProductsInInvoice), true)]
-[assembly: EdmRelationshipAttribute("StorageDBModel", "Product____ProductsInInvoice", "Product", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Storage.ORM.Product), "ProductsInInvoice", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Storage.ORM.ProductsInInvoice), true)]
 [assembly: EdmRelationshipAttribute("StorageDBModel", "Category____Product", "Category", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Storage.ORM.Category), "Product", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Storage.ORM.Product), true)]
-[assembly: EdmRelationshipAttribute("StorageDBModel", "User____Category", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Storage.ORM.User), "Category", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Storage.ORM.Category), true)]
-[assembly: EdmRelationshipAttribute("StorageDBModel", "User____Client", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Storage.ORM.User), "Client", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Storage.ORM.Client), true)]
-[assembly: EdmRelationshipAttribute("StorageDBModel", "User____Invoice", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Storage.ORM.User), "Invoice", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Storage.ORM.Invoice), true)]
-[assembly: EdmRelationshipAttribute("StorageDBModel", "User____Product", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Storage.ORM.User), "Product", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Storage.ORM.Product), true)]
+[assembly: EdmRelationshipAttribute("StorageDBModel", "Product____ProductsInInvoice", "Product", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Storage.ORM.Product), "ProductsInInvoice", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Storage.ORM.ProductsInInvoice), true)]
+[assembly: EdmRelationshipAttribute("StorageDBModel", "User____Category", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Storage.ORM.User), "Category", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Storage.ORM.Category), true)]
+[assembly: EdmRelationshipAttribute("StorageDBModel", "User____Client", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Storage.ORM.User), "Client", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Storage.ORM.Client), true)]
+[assembly: EdmRelationshipAttribute("StorageDBModel", "User____Invoice", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Storage.ORM.User), "Invoice", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Storage.ORM.Invoice), true)]
+[assembly: EdmRelationshipAttribute("StorageDBModel", "User____Product", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Storage.ORM.User), "Product", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Storage.ORM.Product), true)]
 
 #endregion
 
@@ -81,6 +81,22 @@ namespace Storage.ORM
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
+        public ObjectSet<ProductsInInvoice> ProductsInInvoices
+        {
+            get
+            {
+                if ((_ProductsInInvoices == null))
+                {
+                    _ProductsInInvoices = base.CreateObjectSet<ProductsInInvoice>("ProductsInInvoices");
+                }
+                return _ProductsInInvoices;
+            }
+        }
+        private ObjectSet<ProductsInInvoice> _ProductsInInvoices;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
         public ObjectSet<Client> Clients
         {
             get
@@ -113,38 +129,6 @@ namespace Storage.ORM
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        public ObjectSet<Product> Products
-        {
-            get
-            {
-                if ((_Products == null))
-                {
-                    _Products = base.CreateObjectSet<Product>("Products");
-                }
-                return _Products;
-            }
-        }
-        private ObjectSet<Product> _Products;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        public ObjectSet<ProductsInInvoice> ProductsInInvoices
-        {
-            get
-            {
-                if ((_ProductsInInvoices == null))
-                {
-                    _ProductsInInvoices = base.CreateObjectSet<ProductsInInvoice>("ProductsInInvoices");
-                }
-                return _ProductsInInvoices;
-            }
-        }
-        private ObjectSet<ProductsInInvoice> _ProductsInInvoices;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
         public ObjectSet<Category> Categories
         {
             get
@@ -157,6 +141,22 @@ namespace Storage.ORM
             }
         }
         private ObjectSet<Category> _Categories;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<Product> Products
+        {
+            get
+            {
+                if ((_Products == null))
+                {
+                    _Products = base.CreateObjectSet<Product>("Products");
+                }
+                return _Products;
+            }
+        }
+        private ObjectSet<Product> _Products;
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -178,6 +178,14 @@ namespace Storage.ORM
         #region AddTo Methods
     
         /// <summary>
+        /// Deprecated Method for adding a new object to the ProductsInInvoices EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToProductsInInvoices(ProductsInInvoice productsInInvoice)
+        {
+            base.AddObject("ProductsInInvoices", productsInInvoice);
+        }
+    
+        /// <summary>
         /// Deprecated Method for adding a new object to the Clients EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
         /// </summary>
         public void AddToClients(Client client)
@@ -194,27 +202,19 @@ namespace Storage.ORM
         }
     
         /// <summary>
-        /// Deprecated Method for adding a new object to the Products EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToProducts(Product product)
-        {
-            base.AddObject("Products", product);
-        }
-    
-        /// <summary>
-        /// Deprecated Method for adding a new object to the ProductsInInvoices EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToProductsInInvoices(ProductsInInvoice productsInInvoice)
-        {
-            base.AddObject("ProductsInInvoices", productsInInvoice);
-        }
-    
-        /// <summary>
         /// Deprecated Method for adding a new object to the Categories EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
         /// </summary>
         public void AddToCategories(Category category)
         {
             base.AddObject("Categories", category);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the Products EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToProducts(Product product)
+        {
+            base.AddObject("Products", product);
         }
     
         /// <summary>
@@ -248,11 +248,13 @@ namespace Storage.ORM
         /// </summary>
         /// <param name="id">Initial value of the ID property.</param>
         /// <param name="name">Initial value of the Name property.</param>
-        public static Category CreateCategory(global::System.Int32 id, global::System.String name)
+        /// <param name="userID">Initial value of the UserID property.</param>
+        public static Category CreateCategory(global::System.Int32 id, global::System.String name, global::System.Int32 userID)
         {
             Category category = new Category();
             category.ID = id;
             category.Name = name;
+            category.UserID = userID;
             return category;
         }
 
@@ -313,9 +315,9 @@ namespace Storage.ORM
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public Nullable<global::System.Int32> UserID
+        public global::System.Int32 UserID
         {
             get
             {
@@ -330,8 +332,8 @@ namespace Storage.ORM
                 OnUserIDChanged();
             }
         }
-        private Nullable<global::System.Int32> _UserID;
-        partial void OnUserIDChanging(Nullable<global::System.Int32> value);
+        private global::System.Int32 _UserID;
+        partial void OnUserIDChanging(global::System.Int32 value);
         partial void OnUserIDChanged();
 
         #endregion
@@ -418,13 +420,15 @@ namespace Storage.ORM
         /// <param name="name">Initial value of the Name property.</param>
         /// <param name="telephone">Initial value of the Telephone property.</param>
         /// <param name="address">Initial value of the Address property.</param>
-        public static Client CreateClient(global::System.Int32 id, global::System.String name, global::System.String telephone, global::System.String address)
+        /// <param name="userID">Initial value of the UserID property.</param>
+        public static Client CreateClient(global::System.Int32 id, global::System.String name, global::System.String telephone, global::System.String address, global::System.Int32 userID)
         {
             Client client = new Client();
             client.ID = id;
             client.Name = name;
             client.Telephone = telephone;
             client.Address = address;
+            client.UserID = userID;
             return client;
         }
 
@@ -533,9 +537,9 @@ namespace Storage.ORM
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public Nullable<global::System.Int32> UserID
+        public global::System.Int32 UserID
         {
             get
             {
@@ -550,8 +554,8 @@ namespace Storage.ORM
                 OnUserIDChanged();
             }
         }
-        private Nullable<global::System.Int32> _UserID;
-        partial void OnUserIDChanging(Nullable<global::System.Int32> value);
+        private global::System.Int32 _UserID;
+        partial void OnUserIDChanging(global::System.Int32 value);
         partial void OnUserIDChanged();
 
         #endregion
@@ -565,7 +569,7 @@ namespace Storage.ORM
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("StorageDBModel", "Recipient____Invoice", "Invoice")]
-        public EntityCollection<Invoice> RecipientInvoices
+        public EntityCollection<Invoice> Recipients
         {
             get
             {
@@ -587,7 +591,7 @@ namespace Storage.ORM
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("StorageDBModel", "Supplier____Invoice", "Invoice")]
-        public EntityCollection<Invoice> SupplierInvoices
+        public EntityCollection<Invoice> Suppliers
         {
             get
             {
@@ -662,7 +666,8 @@ namespace Storage.ORM
         /// <param name="supplierID">Initial value of the SupplierID property.</param>
         /// <param name="recipientID">Initial value of the RecipientID property.</param>
         /// <param name="number">Initial value of the Number property.</param>
-        public static Invoice CreateInvoice(global::System.Int32 id, global::System.DateTime date, global::System.String type, global::System.Int32 supplierID, global::System.Int32 recipientID, global::System.Int32 number)
+        /// <param name="userID">Initial value of the UserID property.</param>
+        public static Invoice CreateInvoice(global::System.Int32 id, global::System.DateTime date, global::System.String type, global::System.Int32 supplierID, global::System.Int32 recipientID, global::System.Int32 number, global::System.Int32 userID)
         {
             Invoice invoice = new Invoice();
             invoice.ID = id;
@@ -671,6 +676,7 @@ namespace Storage.ORM
             invoice.SupplierID = supplierID;
             invoice.RecipientID = recipientID;
             invoice.Number = number;
+            invoice.UserID = userID;
             return invoice;
         }
 
@@ -851,9 +857,9 @@ namespace Storage.ORM
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public Nullable<global::System.Int32> UserID
+        public global::System.Int32 UserID
         {
             get
             {
@@ -868,8 +874,8 @@ namespace Storage.ORM
                 OnUserIDChanged();
             }
         }
-        private Nullable<global::System.Int32> _UserID;
-        partial void OnUserIDChanging(Nullable<global::System.Int32> value);
+        private global::System.Int32 _UserID;
+        partial void OnUserIDChanging(global::System.Int32 value);
         partial void OnUserIDChanged();
 
         #endregion
@@ -1035,7 +1041,8 @@ namespace Storage.ORM
         /// <param name="shallowWholesalePrice">Initial value of the ShallowWholesalePrice property.</param>
         /// <param name="retailPrice">Initial value of the RetailPrice property.</param>
         /// <param name="code">Initial value of the Code property.</param>
-        public static Product CreateProduct(global::System.Int32 id, global::System.String name, global::System.String unit, global::System.Decimal wholesalePrice, global::System.Decimal shallowWholesalePrice, global::System.Decimal retailPrice, global::System.String code)
+        /// <param name="userID">Initial value of the UserID property.</param>
+        public static Product CreateProduct(global::System.Int32 id, global::System.String name, global::System.String unit, global::System.Decimal wholesalePrice, global::System.Decimal shallowWholesalePrice, global::System.Decimal retailPrice, global::System.String code, global::System.Int32 userID)
         {
             Product product = new Product();
             product.ID = id;
@@ -1045,6 +1052,7 @@ namespace Storage.ORM
             product.ShallowWholesalePrice = shallowWholesalePrice;
             product.RetailPrice = retailPrice;
             product.Code = code;
+            product.UserID = userID;
             return product;
         }
 
@@ -1249,9 +1257,9 @@ namespace Storage.ORM
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public Nullable<global::System.Int32> UserID
+        public global::System.Int32 UserID
         {
             get
             {
@@ -1266,35 +1274,13 @@ namespace Storage.ORM
                 OnUserIDChanged();
             }
         }
-        private Nullable<global::System.Int32> _UserID;
-        partial void OnUserIDChanging(Nullable<global::System.Int32> value);
+        private global::System.Int32 _UserID;
+        partial void OnUserIDChanging(global::System.Int32 value);
         partial void OnUserIDChanged();
 
         #endregion
     
         #region Navigation Properties
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("StorageDBModel", "Product____ProductsInInvoice", "ProductsInInvoice")]
-        public EntityCollection<ProductsInInvoice> ProductsInInvoices
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<ProductsInInvoice>("StorageDBModel.Product____ProductsInInvoice", "ProductsInInvoice");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<ProductsInInvoice>("StorageDBModel.Product____ProductsInInvoice", "ProductsInInvoice", value);
-                }
-            }
-        }
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -1330,6 +1316,28 @@ namespace Storage.ORM
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Category>("StorageDBModel.Category____Product", "Category", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("StorageDBModel", "Product____ProductsInInvoice", "ProductsInInvoice")]
+        public EntityCollection<ProductsInInvoice> ProductsInInvoices
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<ProductsInInvoice>("StorageDBModel.Product____ProductsInInvoice", "ProductsInInvoice");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<ProductsInInvoice>("StorageDBModel.Product____ProductsInInvoice", "ProductsInInvoice", value);
                 }
             }
         }
@@ -1631,7 +1639,8 @@ namespace Storage.ORM
         /// <param name="password">Initial value of the Password property.</param>
         /// <param name="name">Initial value of the Name property.</param>
         /// <param name="surname">Initial value of the Surname property.</param>
-        public static User CreateUser(global::System.Int32 id, global::System.String username, global::System.String password, global::System.String name, global::System.String surname)
+        /// <param name="expirationDate">Initial value of the ExpirationDate property.</param>
+        public static User CreateUser(global::System.Int32 id, global::System.String username, global::System.String password, global::System.String name, global::System.String surname, global::System.DateTime expirationDate)
         {
             User user = new User();
             user.ID = id;
@@ -1639,6 +1648,7 @@ namespace Storage.ORM
             user.Password = password;
             user.Name = name;
             user.Surname = surname;
+            user.ExpirationDate = expirationDate;
             return user;
         }
 
@@ -1767,6 +1777,30 @@ namespace Storage.ORM
         private global::System.String _Surname;
         partial void OnSurnameChanging(global::System.String value);
         partial void OnSurnameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.DateTime ExpirationDate
+        {
+            get
+            {
+                return _ExpirationDate;
+            }
+            set
+            {
+                OnExpirationDateChanging(value);
+                ReportPropertyChanging("ExpirationDate");
+                _ExpirationDate = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("ExpirationDate");
+                OnExpirationDateChanged();
+            }
+        }
+        private global::System.DateTime _ExpirationDate;
+        partial void OnExpirationDateChanging(global::System.DateTime value);
+        partial void OnExpirationDateChanged();
 
         #endregion
     

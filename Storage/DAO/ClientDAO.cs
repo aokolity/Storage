@@ -43,18 +43,22 @@ namespace Storage.DAO
 
         public static void CreateClient(ClientModel clientModel)
         {
-            var storageDbEntities = new StorageDBEntities();
+            if (UserHelper.UserID != null)
+            {
+                var storageDbEntities = new StorageDBEntities();
 
-            Client newClient = new Client
-                                     {
-                                         Name = clientModel.Name,
-                                         Address = clientModel.Address,
-                                         Telephone = clientModel.Telephone,
-                                         UserID = UserHelper.UserID
-                                     };
+                Client newClient = new Client
+                                       {
+                                           Name = clientModel.Name,
+                                           Address = clientModel.Address,
+                                           Telephone = clientModel.Telephone,
+                                           UserID = UserHelper.UserID.Value
+                                       };
 
-            storageDbEntities.Clients.AddObject(newClient);
-            storageDbEntities.SaveChanges();
+                storageDbEntities.Clients.AddObject(newClient);
+
+                storageDbEntities.SaveChanges();
+            }
         }
 
         public static void UpdateClient(int id, ClientModel clientModel)
